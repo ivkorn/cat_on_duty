@@ -38,9 +38,9 @@ defmodule CatOnDuty.Employees do
 
   @spec filter_teams(String.t()) :: [Team.t()] | []
   def filter_teams(search_term) do
-    wildcard_search = "%#{search_term}%"
+    wildcard_search = String.downcase("%#{search_term}%")
 
-    query = from(t in Team, where: ilike(t.name, ^wildcard_search))
+    query = from(t in Team, where: like(fragment("lower(?)", t.name), ^wildcard_search))
 
     list_teams(query)
   end
@@ -108,12 +108,12 @@ defmodule CatOnDuty.Employees do
 
   @spec filter_sentries(String.t()) :: [Sentry.t()] | []
   def filter_sentries(search_term) do
-    wildcard_search = "%#{search_term}%"
+    wildcard_search = String.downcase("%#{search_term}%")
 
     query =
       from(s in Sentry,
-        where: ilike(s.name, ^wildcard_search),
-        or_where: ilike(s.tg_username, ^wildcard_search)
+        where: like(fragment("lower(?)", s.name), ^wildcard_search),
+        or_where: like(fragment("lower(?)", s.tg_username), ^wildcard_search)
       )
 
     list_sentries(query)
