@@ -1,48 +1,48 @@
 ## "msgid"s in this file come from POT (.pot) files.
-##
-## Do not add, change, or remove "msgid"s manually here as
-## they're tied to the ones in the corresponding POT file
-## (with the same domain).
-##
-## Use "mix gettext.extract --merge" or "mix gettext.merge"
-## to merge POT files into PO files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
 msgid ""
 msgstr ""
 "Language: en\n"
-"Plural-Forms: nplurals=2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:40
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:43
 #, elixir-autogen, elixir-format
 msgid "Sentry changed"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:65
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:68
 #, elixir-autogen, elixir-format
 msgid "Sentry added"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/show.ex:70
-#: lib/cat_on_duty_web/live/team_live/show.ex:85
+#: lib/cat_on_duty_web/live/sentry_live/show.ex:60
+#: lib/cat_on_duty_web/live/team_live/show.ex:81
 #, elixir-autogen, elixir-format
 msgid "Sentry deleted"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:52
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:55
 #, elixir-autogen, elixir-format
 msgid "Team added"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:39
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:42
 #, elixir-autogen, elixir-format
 msgid "Team changed"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/show.ex:72
+#: lib/cat_on_duty_web/live/team_live/show.ex:68
 #, elixir-autogen, elixir-format
 msgid "Team deleted"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/show.ex:94
+#: lib/cat_on_duty_web/live/team_live/show.ex:90
 #, elixir-autogen, elixir-format
 msgid "Team today sentry rotated"
 msgstr ""

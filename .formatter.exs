@@ -1,13 +1,6 @@
 [
-  import_deps: [:ecto, :phoenix],
-  plugins: [Phoenix.LiveView.HTMLFormatter],
-  inputs:
-    Enum.flat_map(
-      ["*.{heex,ex,exs}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{heex,ex,exs}"],
-      &Path.wildcard(&1, match_dot: true)
-    ) --
-      ["lib/cat_on_duty_web/templates/layout/live.html.heex"],
+  import_deps: [:ecto, :ecto_sql, :phoenix],
   subdirectories: ["priv/*/migrations"],
-  line_length: 100,
-  heex_line_length: 120
+  plugins: [Phoenix.LiveView.HTMLFormatter, Styler],
+  inputs: ["*.{heex,ex,exs}", "{config,lib,test}/**/*.{heex,ex,exs}", "priv/*/seeds.exs"]
 ]

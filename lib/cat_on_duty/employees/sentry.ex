@@ -2,10 +2,12 @@ defmodule CatOnDuty.Employees.Sentry do
   @moduledoc "Sentry model"
 
   use Ecto.Schema
+
+  import CatOnDutyWeb.Gettext
   import Ecto.Changeset
-  import CatOnDuty.Gettext
 
   alias CatOnDuty.Employees.Team
+  alias Ecto.Association.NotLoaded
 
   @type t :: %__MODULE__{
           id: pos_integer | nil,
@@ -13,8 +15,8 @@ defmodule CatOnDuty.Employees.Sentry do
           tg_username: String.t() | nil,
           on_vacation?: boolean | nil,
           last_duty_at: DateTime.t() | nil,
-          team: Team.t() | nil | Ecto.Association.NotLoaded.t(),
-          today_duty: Team.t() | nil | Ecto.Association.NotLoaded.t(),
+          team: Team.t() | nil | NotLoaded.t(),
+          today_duty: Team.t() | nil | NotLoaded.t(),
           inserted_at: NaiveDateTime.t() | nil,
           updated_at: NaiveDateTime.t() | nil
         }

@@ -1,51 +1,56 @@
 <h1><%= @team.name %></h1>
 
 <%= if @live_action in ~w[edit]a do %>
-  <%= live_modal(CatOnDutyWeb.TeamLive.FormComponent,
-    id: @team.id,
-    title: @page_title,
-    action: @live_action,
-    team: @team,
-    return_to: Routes.team_show_path(@socket, :show, @team)
-  ) %>
+  <.live_component
+    module={CatOnDutyWeb.TeamLive.FormComponent}
+    id={"team-#{@team.id}"}
+    title={@page_title}
+    action={@live_action}
+    team={@team}
+    return_to={~p"/teams/#{@team.id}"}
+  />
 <% end %>
 
 <%= if @live_action in ~w[new_sentry edit_sentry]a do %>
-  <%= live_modal(CatOnDutyWeb.SentryLive.FormComponent,
-    id: @sentry.id || :new,
-    title: @page_title,
-    action: @live_action,
-    sentry: @sentry,
-    team: @team,
-    return_to: Routes.team_show_path(@socket, :show, @team)
-  ) %>
+  <.live_component
+    module={CatOnDutyWeb.SentryLive.FormComponent}
+    id={if @sentry.id, do: "sentry-#{@sentry.id}", else: "new"}
+    title={@page_title}
+    action={@live_action}
+    sentry={@sentry}
+    team={@team}
+    return_to={~p"/teams/#{@team.id}"}
+  />
 <% end %>
 
-<table id="team">
+<table id="team" class="table table-hover mt-5">
   <tr>
-    <th><%= dgettext("team", "Telegram chat ID") %></th>
+    <th scope="col"><%= dgettext("team", "Telegram chat ID") %></th>
     <td><%= @team.tg_chat_id %></td>
     <td></td>
   </tr>
   <tr>
-    <th><%= dgettext("team", "Today on duty") %></th>
+    <th scope="row"><%= dgettext("team", "Today on duty") %></th>
     <%= if @team.today_sentry != nil do %>
       <td>
-        <%= link(@team.today_sentry.name,
-          to: Routes.sentry_show_path(@socket, :show, @team.today_sentry)
-        ) %>
+        <.link patch={~p"/sentries/#{@team.today_sentry.id}"}>
+          <%= @team.today_sentry.name %>
+        </.link>
       </td>
     <% else %>
       <td><%= dgettext("form", "Nobody, we are in danger!") %></td>
     <% end %>
     <td>
-      <%= link(dgettext("form", "Rotate today sentry"),
-        to: "#",
-        phx_click: "rotate_today_sentry",
-        phx_value_id: @team.id,
-        data: [confirm: dgettext("form", "Are you shure?")],
-        class: "button"
-      ) %>
+      <.link
+        href="#"
+        phx-click="rotate_today_sentry"
+        phx-value-id={@team.id}
+        data-confirm={dgettext("form", "Are you shure?")}
+        role="button"
+        class="btn btn-success"
+      >
+        <%= dgettext("form", "Rotate today sentry") %>
+      </.link>
     </td>
   </tr>
 </table>
@@ -53,13 +58,13 @@
 <%= if @team.sentries != [] do %>
   <h2><%= dgettext("sentry", "Sentries") %></h2>
 
-  <table id="team_sentries">
+  <table id="team_sentries" class="table table-hover mt-5">
     <tr>
-      <th><%= dgettext("sentry", "Name") %></th>
-      <th><%= dgettext("sentry", "Telegram username") %></th>
-      <th><%= dgettext("sentry", "Last duty") %></th>
-      <th><%= dgettext("sentry", "On vacation?") %></th>
-      <th></th>
+      <th scope="col"><%= dgettext("sentry", "Name") %></th>
+      <th scope="col"><%= dgettext("sentry", "Telegram username") %></th>
+      <th scope="col"><%= dgettext("sentry", "Last duty") %></th>
+      <th scope="col"><%= dgettext("sentry", "On vacation?") %></th>
+      <th scope="col"></th>
     </tr>
     <%= for sentry <- @team.sentries do %>
       <tr id={"sentry-#{sentry.id}"}>
@@ -67,40 +72,36 @@
         <td><%= sentry.tg_username %></td>
         <td>
           <%= if sentry.last_duty_at != nil,
-            do: Timex.format!(sentry.last_duty_at, dgettext("formats", "date")) %>
+            do: Calendar.strftime(sentry.last_duty_at, dgettext("formats", "date")) %>
         </td>
         <td>
           <%= if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No") %>
         </td>
         <td>
-          <%= live_redirect(dgettext("form", "Show"),
-            to: Routes.sentry_show_path(@socket, :show, sentry),
-            class: "button"
-          ) %>
+          <.link navigate={~p"/sentries/#{sentry}"} role="button" class="btn btn-secondary">
+            <%= dgettext("form", "Show") %>
+          </.link>
         </td>
       </tr>
     <% end %>
   </table>
 <% end %>
 
-<span>
-  <%= live_patch(dgettext("form", "New sentry"),
-    to: Routes.team_show_path(@socket, :new_sentry, @team),
-    class: "button"
-  ) %>
-</span>
-<span>
-  <%= live_patch(dgettext("form", "Edit team"),
-    to: Routes.team_show_path(@socket, :edit, @team),
-    class: "button"
-  ) %>
-</span>
-<span>
-  <%= link(dgettext("form", "Delete team"),
-    to: "#",
-    phx_click: "delete",
-    phx_value_id: @team.id,
-    data: [confirm: dgettext("form", "Are you shure?")],
-    class: "button"
-  ) %>
-</span>
+<div class="btn-group" role="group">
+  <.link patch={~p"/teams/#{@team.id}/new_sentry"} role="button" class="btn btn-primary">
+    <%= dgettext("form", "New sentry") %>
+  </.link>
+  <.link patch={~p"/teams/#{@team.id}/edit"} role="button" class="btn btn-info">
+    <%= dgettext("form", "Edit team") %>
+  </.link>
+  <.link
+    href="#"
+    phx-click="delete"
+    phx-value-id={@team.id}
+    data-confirm={dgettext("form", "Are you shure?")}
+    role="button"
+    class="btn btn-danger"
+  >
+    <%= dgettext("form", "Delete team") %>
+  </.link>
+</div>

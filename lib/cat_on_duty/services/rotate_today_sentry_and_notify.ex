@@ -1,18 +1,17 @@
 defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
   @moduledoc "Serviice that provides functions for rotation and team or all teams today sentry"
 
-  import CatOnDuty.Gettext
+  import CatOnDutyWeb.Gettext
 
+  alias CatOnDuty.BusinessCalendar
   alias CatOnDuty.Employees
   alias CatOnDuty.Employees.Sentry
   alias CatOnDuty.Employees.Team
 
   @spec for_all_teams :: {:ok, :rotated} | {:error, :not_business_day}
   def for_all_teams do
-    if Timex.today() |> Timex.to_naive_datetime() |> Businex.Calendar.business_day?() do
-      Employees.list_teams()
-      |> Enum.each(&for_team(&1.id))
-
+    if BusinessCalendar.working_day?(DateTime.utc_now()) do
+      Enum.each(Employees.list_teams(), &for_team(&1.id))
       {:ok, :rotated}
     else
       {:error, :not_business_day}
@@ -38,7 +37,7 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
         Employees.update_team_today_sentry(team, %{today_sentry_id: nil})
 
       %Sentry{} = most_rested ->
-        {:ok, _} = Employees.update_sentry_last_duty_at(most_rested, %{last_duty_at: Timex.now()})
+        {:ok, _} = Employees.update_sentry_last_duty_at(most_rested, %{last_duty_at: DateTime.utc_now()})
 
         Employees.update_team_today_sentry(team, %{today_sentry_id: most_rested.id})
     end
@@ -67,26 +66,12 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
   end
 
   @spec notify(Team.t(), 0..6) :: :ok | {:error, :not_sended}
-  defp notify(_team, 6), do: {:error, :not_sended}
+  def notify(_team, 6), do: {:error, :not_sended}
 
-  defp notify(%Team{today_sentry: sentry, tg_chat_id: chat_id} = team, retry) do
-    case Nadia.send_message(
-           String.to_integer(chat_id),
-           dgettext("telegram", "❗Today's duty is on %{name}(%{username})",
-             name: sentry.name,
-             username: sentry.tg_username
-           )
-         ) do
-      {:ok, _result} ->
-        :ok
+  def notify(%Team{today_sentry: sentry, tg_chat_id: chat_id} = _team, _retry) do
+    message =
+      dgettext("telegram", "❗Today's duty is on %{name}(%{username})", name: sentry.name, username: sentry.tg_username)
 
-      {:error, %Nadia.Model.Error{reason: "Bad Request: chat not found"}} ->
-        {:error, :not_sended}
-
-      {:error, _error} ->
-        :timer.sleep(5000)
-
-        notify(team, retry + 1)
-    end
+    Telegex.send_message(String.to_integer(chat_id), message)
   end
 end

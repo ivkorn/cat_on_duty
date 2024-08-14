@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix=" · Phoenix Framework">
+      <%= assigns[:page_title] || "CatOnDuty" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+  </head>
+  <body class="bg-white container">
+    <header class="d-flex align-items-center justify-content-between">
+      <.link navigate={~p"/"} class="logo">
+        <img src={~p"/images/logo.png"} alt="Cat On Duty Logo" class="w-100" />
+      </.link>
+      <nav class="nav flex-column align-items-end">
+        <.link navigate={~p"/teams"} class="nav-link">
+          <%= dgettext("team", "Teams") %>
+        </.link>
+        <.link navigate={~p"/sentries"} class="nav-link">
+          <%= dgettext("sentry", "Sentries") %>
+        </.link>
+      </nav>
+    </header>
+    <%= @inner_content %>
+    <footer></footer>
+  </body>
+</html>

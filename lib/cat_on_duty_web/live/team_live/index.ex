@@ -1,9 +1,10 @@
 defmodule CatOnDutyWeb.TeamLive.Index do
-  @moduledoc "Team index page handlers"
-
+  @moduledoc false
   use CatOnDutyWeb, :live_view
 
-  alias CatOnDuty.{Employees, Employees.Team}
+  alias CatOnDuty.Employees
+  alias CatOnDuty.Employees.Team
+  alias Phoenix.LiveView.Socket
 
   @impl true
   def mount(_params, _session, socket) do
@@ -11,20 +12,18 @@ defmodule CatOnDutyWeb.TeamLive.Index do
 
     {:ok,
      socket
-     |> assign(:search, "")
-     |> fetch()}
+     |> assign(:search, to_form(%{}))
+     |> local_fetch()}
   end
 
   @impl true
-  def handle_info({Employees, [:team | _], _}, %{assigns: %{search: search}} = socket)
-      when search != "",
-      do: {:noreply, socket}
+  def handle_info({Employees, [:team | _], _}, %{assigns: %{search: search}} = socket) when search != "",
+    do: {:noreply, socket}
 
-  def handle_info({Employees, [:sentry | _], _}, %{assigns: %{search: search}} = socket)
-      when search != "",
-      do: {:noreply, socket}
+  def handle_info({Employees, [:sentry | _], _}, %{assigns: %{search: search}} = socket) when search != "",
+    do: {:noreply, socket}
 
-  def handle_info({Employees, [:team | _], _}, socket), do: {:noreply, fetch(socket)}
+  def handle_info({Employees, [:team | _], _}, socket), do: {:noreply, local_fetch(socket)}
 
   def handle_info({Employees, [:sentry | _], _}, socket), do: {:noreply, socket}
 
@@ -34,26 +33,23 @@ defmodule CatOnDutyWeb.TeamLive.Index do
   end
 
   @impl true
-  def handle_event("search", %{"search" => %{"term" => term}}, socket) do
+  def handle_event("search", %{"value" => term} = search, socket) do
     search_term = String.trim(term)
 
     {:noreply,
      socket
-     |> assign(:search, search_term)
+     |> assign(:search, to_form(search))
      |> assign(:teams, Employees.filter_teams(search_term))}
   end
 
-  @spec apply_action(Phoenix.LiveView.Socket.t(), :new | :index, map) ::
-          Phoenix.LiveView.Socket.t()
-  defp apply_action(socket, :new, _params) do
+  def apply_action(socket, :index, _params), do: assign(socket, :page_title, dgettext("form", "Teams"))
+
+  def apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, dgettext("form", "New team"))
     |> assign(:team, %Team{})
   end
 
-  defp apply_action(socket, :index, _params),
-    do: assign(socket, :page_title, dgettext("form", "Teams"))
-
-  @spec fetch(Phoenix.LiveView.Socket.t()) :: Phoenix.LiveView.Socket.t()
-  defp fetch(socket), do: assign(socket, :teams, Employees.list_teams())
+  @spec local_fetch(Socket.t()) :: Socket.t()
+  defp local_fetch(socket), do: assign(socket, :teams, Employees.list_teams())
 end

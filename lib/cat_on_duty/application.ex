@@ -17,7 +17,9 @@ defmodule CatOnDuty.Application do
       CatOnDutyWeb.Endpoint,
       # Start a worker by calling: CatOnDuty.Worker.start_link(arg)
       # {CatOnDuty.Worker, arg}
-      {Oban, Application.fetch_env!(:cat_on_duty, Oban)}
+      {Oban, Application.fetch_env!(:cat_on_duty, Oban)},
+      # Start the Finch HTTP client for sending emails
+      {Finch, name: CatOnDuty.HTTP}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

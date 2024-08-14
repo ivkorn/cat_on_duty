@@ -1,56 +1,56 @@
 ## "msgid"s in this file come from POT (.pot) files.
-##
-## Do not add, change, or remove "msgid"s manually here as
-## they're tied to the ones in the corresponding POT file
-## (with the same domain).
-##
-## Use "mix gettext.extract --merge" or "mix gettext.merge"
-## to merge POT files into PO files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
 msgid ""
 msgstr ""
 "Language: en\n"
-"Plural-Forms: nplurals=2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:5
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:12
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:27
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:58
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:9
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:13
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:28
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:15
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:59
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:16
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Telegram username"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:14
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:17
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:29
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:19
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Team"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:21
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:25
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:30
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:35
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:61
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:38
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:65
 #, elixir-autogen, elixir-format
 msgid "On vacation?"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/index.ex:54
+#: lib/cat_on_duty_web/components/layouts/root.html.heex:26
+#: lib/cat_on_duty_web/live/sentry_live/index.ex:52
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:1
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:54
-#: lib/cat_on_duty_web/templates/layout/root.html.heex:22
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:58
 #, elixir-autogen, elixir-format
 msgid "Sentries"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:30
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:60
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:33
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "Last duty"
 msgstr ""

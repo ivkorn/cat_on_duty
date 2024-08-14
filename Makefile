@@ -1,16 +1,18 @@
-default: mix-format mix-credo mix-dialyzer mix-test gettext
+ARGS = $(filter-out $@,$(MAKECMDGOALS))
 
-mix-format:
-	mix format
+lint:
+	mix do format --check-formatted, credo, dialyzer --quiet-with-result
 
-mix-credo:
-	mix credo
+gen-erd:
+	tmp_erd_path="$$(mktemp -d)/ecto_erd.dot"; \
+	mix ecto.gen.erd --output-path=$$tmp_erd_path && \
+	dot -Tsvg $$tmp_erd_path -o docs/erd.svg
 
-mix-dialyzer:
-	mix dialyzer --format dialyxir
+routes:
+	mix phx.routes | grep "$(ARGS)"
 
-mix-test:
-	mix test
+serve:
+	source ./.envrc && iex --dbg pry -S mix phx.server
 
 gettext:
 	mix gettext.extract --merge

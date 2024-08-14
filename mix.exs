@@ -4,13 +4,13 @@ defmodule CatOnDuty.MixProject do
   def project do
     [
       app: :cat_on_duty,
-      version: "1.0.0",
-      elixir: "~> 1.12",
+      version: "1.1.0",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_apps: [:mix], plt_core_path: "priv/dialyzer/core", plt_local_path: "priv/dialyzer/local"]
     ]
   end
 
@@ -20,7 +20,7 @@ defmodule CatOnDuty.MixProject do
   def application do
     [
       mod: {CatOnDuty.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ssl, :os_mon, :businex]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :xmerl]
     ]
   end
 
@@ -33,30 +33,32 @@ defmodule CatOnDuty.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.15"},
-      {:phoenix_ecto, "~> 4.4"},
-      {:ecto_sql, "~> 3.6"},
+      {:phoenix, "~> 1.7.14"},
+      {:phoenix_ecto, "~> 4.6"},
+      {:ecto_sql, "~> 3.11"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 3.2"},
-      {:phoenix_live_view, "~> 0.17.12"},
-      {:phoenix_live_dashboard, "~> 0.6"},
-      {:telemetry_metrics, "~> 0.6"},
-      {:telemetry_poller, "~> 0.5"},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
-      {:timex, "~> 3.6"},
-      {:oban, "~> 2.13"},
-      {:oban_web, "~> 2.8", organization: "oban"},
-      {:oban_pro, "~> 0.9", organization: "oban"},
-      {:businex, git: "https://github.com/blockfi/businex.git"},
-      {:nadia, "~> 0.7"},
-      {:hackney, "~> 1.17"},
-      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
+      {:phoenix_html, "~> 4.1"},
+      {:phoenix_live_view, "~> 1.0.0-rc.6"},
+      {:phoenix_live_dashboard, "~> 0.8"},
+      {:telemetry, "~> 1.2"},
+      {:telemetry_metrics, "~> 1.0"},
+      {:telemetry_poller, "~> 1.1"},
+      {:gettext, "~> 0.24"},
+      {:jason, "~> 1.4"},
+      {:bandit, "~> 1.5"},
+      {:oban, "~> 2.18"},
+      {:telegex, "~> 1.8.0"},
+      {:finch, "~> 0.18"},
+      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
-      {:floki, ">= 0.0.0", only: :test},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:ecto_erd, "~> 0.6", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:styler, "~> 1.0.0-rc.2", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
+      {:temp, "~> 0.4", only: [:dev, :test]},
+      {:floki, "~> 0.36", only: :test},
+      {:exvcr, "~> 0.15", only: :test}
     ]
   end
 

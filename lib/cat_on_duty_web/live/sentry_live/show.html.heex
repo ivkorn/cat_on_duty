@@ -1,16 +1,17 @@
 <h1><%= @sentry.name %></h1>
 
 <%= if @live_action in ~w[edit_sentry]a do %>
-  <%= live_modal(CatOnDutyWeb.SentryLive.FormComponent,
-    id: @sentry.id,
-    title: @page_title,
-    action: @live_action,
-    sentry: @sentry,
-    return_to: Routes.sentry_show_path(@socket, :show, @sentry)
-  ) %>
+  <.live_component
+    module={CatOnDutyWeb.SentryLive.FormComponent}
+    id={"sentry-#{@sentry.id}"}
+    title={@page_title}
+    action={@live_action}
+    sentry={@sentry}
+    return_to={~p"/sentries/#{@sentry.id}"}
+  />
 <% end %>
 
-<table id="sentry">
+<table id="sentry" class="table table-hover mt-5">
   <tr>
     <th><%= dgettext("sentry", "Telegram username") %></th>
     <td><%= @sentry.tg_username %></td>
@@ -19,7 +20,9 @@
     <th><%= dgettext("sentry", "Team") %></th>
     <%= if @sentry.team != nil do %>
       <td>
-        <%= link(@sentry.team.name, to: Routes.team_show_path(@socket, :show, @sentry.team)) %>
+        <.link navigate={~p"/teams/#{@sentry.team.id}"}>
+          <%= @sentry.team.name %>
+        </.link>
       </td>
     <% else %>
       <td><%= dgettext("form", "Not selected") %></td>
@@ -28,7 +31,7 @@
   <%= if @sentry.last_duty_at != nil do %>
     <tr>
       <th><%= dgettext("sentry", "Last duty") %></th>
-      <td><%= Timex.format!(@sentry.last_duty_at, dgettext("formats", "date")) %></td>
+      <td><%= Calendar.strftime(@sentry.last_duty_at, dgettext("formats", "date")) %></td>
     </tr>
   <% end %>
   <tr>
@@ -39,18 +42,18 @@
   </tr>
 </table>
 
-<span>
-  <%= live_patch(dgettext("form", "Edit sentry"),
-    to: Routes.sentry_show_path(@socket, :edit_sentry, @sentry),
-    class: "button"
-  ) %>
-</span>
-<span>
-  <%= link(dgettext("form", "Delete sentry"),
-    to: "#",
-    phx_click: "delete",
-    phx_value_id: @sentry.id,
-    data: [confirm: dgettext("form", "Are you shure?")],
-    class: "button"
-  ) %>
-</span>
+<div class="btn-group" role="group">
+  <.link patch={~p"/sentries/#{@sentry.id}/edit"} role="button" class="btn btn-info">
+    <%= dgettext("form", "Edit sentry") %>
+  </.link>
+  <.link
+    href="#"
+    phx-click="delete"
+    phx-value-id={@sentry.id}
+    data-confirm={dgettext("form", "Are you shure?")}
+    role="button"
+    class="btn btn-danger"
+  >
+    <%= dgettext("form", "Delete sentry") %>
+  </.link>
+</div>

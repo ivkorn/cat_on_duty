@@ -2,6 +2,7 @@ defmodule CatOnDutyWeb.Telemetry do
   @moduledoc "Module for telemetry activation for live dashboard"
 
   use Supervisor
+
   import Telemetry.Metrics
 
   def start_link(arg) do

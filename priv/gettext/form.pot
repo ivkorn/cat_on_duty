@@ -10,114 +10,108 @@
 msgid ""
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:23
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:45
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:37
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:73
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:28
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:47
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:40
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:77
 #, elixir-autogen, elixir-format
 msgid "No"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:28
-#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:13
-#, elixir-autogen, elixir-format
-msgid "Save"
-msgstr ""
-
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:24
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:45
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:37
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:73
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:47
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:40
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:77
 #, elixir-autogen, elixir-format
 msgid "Yes"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:28
-#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:13
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:30
+#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:48
-#: lib/cat_on_duty_web/live/team_live/index.html.heex:44
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:76
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:51
+#: lib/cat_on_duty_web/live/team_live/index.html.heex:45
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:81
 #, elixir-autogen, elixir-format
 msgid "Show"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/index.ex:49
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:59
-#: lib/cat_on_duty_web/live/team_live/show.ex:107
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:87
+#: lib/cat_on_duty_web/live/sentry_live/index.ex:48
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:61
+#: lib/cat_on_duty_web/live/team_live/show.ex:102
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:91
 #, elixir-autogen, elixir-format
 msgid "New sentry"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/show.ex:77
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:43
-#: lib/cat_on_duty_web/live/team_live/show.ex:113
+#: lib/cat_on_duty_web/live/sentry_live/show.ex:67
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:47
+#: lib/cat_on_duty_web/live/team_live/show.ex:108
 #, elixir-autogen, elixir-format
 msgid "Edit sentry"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:49
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:59
 #, elixir-autogen, elixir-format
 msgid "Delete sentry"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:53
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:46
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:103
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:56
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:48
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:104
 #, elixir-autogen, elixir-format
 msgid "Are you shure?"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:50
+#: lib/cat_on_duty_web/live/team_live/index.ex:49
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:55
 #, elixir-autogen, elixir-format
 msgid "New team"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:55
+#: lib/cat_on_duty_web/live/team_live/index.ex:45
 #, elixir-autogen, elixir-format
 msgid "Teams"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:99
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:107
 #, elixir-autogen, elixir-format
 msgid "Delete team"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/show.ex:103
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:93
+#: lib/cat_on_duty_web/live/team_live/show.ex:98
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:96
 #, elixir-autogen, elixir-format
 msgid "Edit team"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:17
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Search by name or telegram username"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.html.heex:17
+#: lib/cat_on_duty_web/live/team_live/index.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Search by name"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:40
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:39
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Nobody, we are in danger!"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:42
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:51
 #, elixir-autogen, elixir-format
 msgid "Rotate today sentry"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:16
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:42
-#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:25
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:20
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:44
+#: lib/cat_on_duty_web/live/sentry_live/show.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Not selected"
 msgstr ""

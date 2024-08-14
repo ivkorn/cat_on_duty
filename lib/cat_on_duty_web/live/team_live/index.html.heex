@@ -1,59 +1,56 @@
 <h1><%= dgettext("team", "Teams") %></h1>
 
-<%= if @live_action in ~w[new]a do %>
-  <%= live_modal(CatOnDutyWeb.TeamLive.FormComponent,
-    id: :new,
-    title: @page_title,
-    action: :new,
-    team: @team,
-    return_to: Routes.team_index_path(@socket, :index)
-  ) %>
+<%= if @live_action in [:new] do %>
+  <.live_component
+    module={CatOnDutyWeb.TeamLive.FormComponent}
+    id={:new}
+    title={@page_title}
+    action={:new}
+    team={@team}
+    return_to={~p"/teams"}
+  />
 <% end %>
 
-<.form for={:search} phx-submit="search" phx-change="search" id="search-form">
-  <%= text_input(
-    :search,
-    :term,
-    placeholder: dgettext("form", "Search by name"),
-    autofocus: true,
-    value: @search,
-    "phx-debounce": "300"
-  ) %>
+<.form for={@search} phx-submit="search" phx-change="search" id="search-form">
+  <.input
+    field={@search[:value]}
+    autofocus={true}
+    phx-debounce="300"
+    placeholder={dgettext("form", "Search by name")}
+  />
 </.form>
 
 <%= if @teams != [] do %>
-  <table id="teams">
+  <table id="teams" class="table table-hover mt-5">
     <tr>
-      <th><%= dgettext("team", "Name") %></th>
-      <th><%= dgettext("team", "Today on duty") %></th>
-      <th></th>
+      <th scope="col">#</th>
+      <th scope="col"><%= dgettext("team", "Name") %></th>
+      <th scope="col"><%= dgettext("team", "Today on duty") %></th>
+      <th scope="col"></th>
     </tr>
     <%= for team <- @teams do %>
       <tr id={"team-#{team.id}"}>
+        <th scope="row"><%= team.id %></th>
         <td><%= team.name %></td>
         <td>
           <%= if team.today_sentry != nil do %>
-            <%= link(team.today_sentry.name,
-              to: Routes.sentry_show_path(@socket, :show, team.today_sentry)
-            ) %>
+            <.link patch={~p"/teams"}>
+              <%= team.today_sentry.name %>
+            </.link>
           <% else %>
             <%= dgettext("form", "Nobody, we are in danger!") %>
           <% end %>
         </td>
         <td>
-          <%= live_redirect(dgettext("form", "Show"),
-            to: Routes.team_show_path(@socket, :show, team),
-            class: "button"
-          ) %>
+          <.link patch={~p"/teams/#{team.id}"} role="button" class="btn btn-secondary btn-sm">
+            <%= dgettext("form", "Show") %>
+          </.link>
         </td>
       </tr>
     <% end %>
   </table>
 <% end %>
 
-<span>
-  <%= live_patch(dgettext("form", "New team"),
-    to: Routes.team_index_path(@socket, :new),
-    class: "button"
-  ) %>
-</span>
+<.link patch={~p"/teams/new"} role="button" class="btn btn-primary">
+  <%= dgettext("form", "New team") %>
+</.link>

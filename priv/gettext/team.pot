@@ -10,26 +10,26 @@
 msgid ""
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:5
+#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:12
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr ""
 
+#: lib/cat_on_duty_web/components/layouts/root.html.heex:21
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:1
-#: lib/cat_on_duty_web/templates/layout/root.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Teams"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:9
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:26
+#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:13
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Telegram chat ID"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:28
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:31
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Today on duty"
 msgstr ""

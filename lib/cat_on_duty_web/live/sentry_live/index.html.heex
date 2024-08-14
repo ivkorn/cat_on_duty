@@ -1,42 +1,46 @@
 <h1><%= dgettext("sentry", "Sentries") %></h1>
 
 <%= if @live_action in ~w[new_sentry]a do %>
-  <%= live_modal(CatOnDutyWeb.SentryLive.FormComponent,
-    id: :new,
-    title: @page_title,
-    action: :new,
-    sentry: @sentry,
-    return_to: Routes.sentry_index_path(@socket, :index)
-  ) %>
+  <.live_component
+    module={CatOnDutyWeb.SentryLive.FormComponent}
+    id={:new}
+    title={@page_title}
+    action={:new}
+    sentry={@sentry}
+    return_to={~p"/sentries"}
+  />
 <% end %>
 
-<.form for={:search} phx-submit="search" phx-change="search" id="search-form">
-  <%= text_input(
-    :search,
-    :term,
-    placeholder: dgettext("form", "Search by name or telegram username"),
-    autofocus: true,
-    value: @search,
-    "phx-debounce": "300"
-  ) %>
+<.form for={@search} phx-submit="search" phx-change="search" id="search-form">
+  <.input
+    field={@search[:value]}
+    type="text"
+    autofocus={true}
+    phx-debounce="300"
+    placeholder={dgettext("form", "Search by name or telegram username")}
+  />
 </.form>
 
 <%= if @sentries != [] do %>
-  <table id="sentries">
+  <table id="sentries" class="table table-hover mt-5">
     <tr>
-      <th><%= dgettext("sentry", "Name") %></th>
-      <th><%= dgettext("sentry", "Telegram username") %></th>
-      <th><%= dgettext("sentry", "Team") %></th>
-      <th><%= dgettext("sentry", "On vacation?") %></th>
-      <th></th>
+      <th scope="col">#</th>
+      <th scope="col"><%= dgettext("sentry", "Name") %></th>
+      <th scope="col"><%= dgettext("sentry", "Telegram username") %></th>
+      <th scope="col"><%= dgettext("sentry", "Team") %></th>
+      <th scope="col"><%= dgettext("sentry", "On vacation?") %></th>
+      <th scope="col"></th>
     </tr>
     <%= for sentry <- @sentries do %>
       <tr id={"sentry-#{sentry.id}"}>
+        <th scope="row"><%= sentry.id %></th>
         <td><%= sentry.name %></td>
         <td><%= sentry.tg_username %></td>
         <%= if sentry.team != nil do %>
           <td>
-            <%= link(sentry.team.name, to: Routes.team_show_path(@socket, :show, sentry.team)) %>
+            <.link navigate={~p"/teams/#{sentry.team.id}"} class="phx-logo">
+              <%= sentry.team.name %>
+            </.link>
           </td>
         <% else %>
           <td><%= dgettext("form", "Not selected") %></td>
@@ -45,19 +49,19 @@
           <%= if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No") %>
         </td>
         <td>
-          <%= live_redirect(dgettext("form", "Show"),
-            to: Routes.sentry_show_path(@socket, :show, sentry),
-            class: "button"
-          ) %>
+          <.link
+            navigate={~p"/sentries/#{sentry.id}"}
+            role="button"
+            class="btn btn-secondary btn-sm"
+          >
+            <%= dgettext("form", "Show") %>
+          </.link>
         </td>
       </tr>
     <% end %>
   </table>
 <% end %>
 
-<span>
-  <%= live_patch(dgettext("form", "New sentry"),
-    to: Routes.sentry_index_path(@socket, :new_sentry),
-    class: "button"
-  ) %>
-</span>
+<.link patch={~p"/sentries/new"} role="button" class="btn btn-primary">
+  <%= dgettext("form", "New sentry") %>
+</.link>

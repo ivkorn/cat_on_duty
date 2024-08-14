@@ -7,41 +7,34 @@ defmodule CatOnDutyWeb.TeamLive.Show do
   alias CatOnDuty.Employees.Sentry
   alias CatOnDuty.Employees.Team
   alias CatOnDuty.Services.RotateTodaySentryAndNotify
+  alias Phoenix.LiveView.Socket
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     :ok = Employees.subscribe()
 
-    {:ok, fetch(socket, id)}
+    {:ok, local_fetch(socket, id)}
   end
 
   @impl true
-  def handle_info(
-        {Employees, [:team, :deleted], %{id: deleted_id}},
-        %{assigns: %{team: team}} = socket
-      ) do
+  def handle_info({Employees, [:team, :deleted], %{id: deleted_id}}, %{assigns: %{team: team}} = socket) do
     if deleted_id == team.id do
-      {:noreply,
-       socket
-       |> push_redirect(to: Routes.team_index_path(socket, :index))}
+      {:noreply, push_navigate(socket, to: ~p"/teams")}
     else
       {:noreply, socket}
     end
   end
 
-  def handle_info(
-        {Employees, [:team | _], %{id: updated_id}},
-        %{assigns: %{team: team}} = socket
-      ) do
+  def handle_info({Employees, [:team | _], %{id: updated_id}}, %{assigns: %{team: team}} = socket) do
     if updated_id == team.id do
-      {:noreply, fetch(socket, team.id)}
+      {:noreply, local_fetch(socket, team.id)}
     else
       {:noreply, socket}
     end
   end
 
   def handle_info({Employees, [:sentry | _], _}, %{assigns: %{team: team}} = socket),
-    do: {:noreply, fetch(socket, team.id)}
+    do: {:noreply, local_fetch(socket, team.id)}
 
   @impl true
   def handle_params(%{"id" => id, "sentry_id" => sentry_id}, _, socket) do
@@ -73,7 +66,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
     {:noreply,
      socket
      |> put_flash(:info, dgettext("flash", "Team deleted"))
-     |> push_redirect(to: Routes.team_index_path(socket, :index))}
+     |> push_navigate(to: ~p"/teams")}
   end
 
   def handle_event("delete_sentry", %{"id" => id}, socket) do
@@ -95,15 +88,14 @@ defmodule CatOnDutyWeb.TeamLive.Show do
     {:noreply,
      socket
      |> put_flash(:info, dgettext("flash", "Team today sentry rotated"))
-     |> fetch(id)}
+     |> local_fetch(id)}
   end
 
-  @spec apply_action(Phoenix.LiveView.Socket.t(), :show | :edit | :new_sentry, map) ::
-          Phoenix.LiveView.Socket.t()
+  @spec apply_action(Socket.t(), :show | :edit | :new_sentry, map) ::
+          Socket.t()
   defp apply_action(socket, :show, %Team{name: name}), do: assign(socket, :page_title, name)
 
-  defp apply_action(socket, :edit, %Team{}),
-    do: assign(socket, :page_title, dgettext("form", "Edit team"))
+  defp apply_action(socket, :edit, %Team{}), do: assign(socket, :page_title, dgettext("form", "Edit team"))
 
   defp apply_action(socket, :new_sentry, %Team{}) do
     socket
@@ -117,6 +109,6 @@ defmodule CatOnDutyWeb.TeamLive.Show do
     |> assign(:sentry, sentry)
   end
 
-  @spec fetch(Phoenix.LiveView.Socket.t(), pos_integer) :: Phoenix.LiveView.Socket.t()
-  defp fetch(socket, id), do: assign(socket, :team, Employees.get_team!(id))
+  @spec local_fetch(Socket.t(), pos_integer) :: Socket.t()
+  defp local_fetch(socket, id), do: assign(socket, :team, Employees.get_team!(id))
 end

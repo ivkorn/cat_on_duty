@@ -2,9 +2,10 @@ defmodule CatOnDuty.Employees do
   @moduledoc "Team and Sentry context"
 
   import Ecto.Query, warn: false
-  alias CatOnDuty.Repo
 
-  alias CatOnDuty.Employees.{Sentry, Team}
+  alias CatOnDuty.Employees.Sentry
+  alias CatOnDuty.Employees.Team
+  alias CatOnDuty.Repo
 
   @topic inspect(__MODULE__)
 

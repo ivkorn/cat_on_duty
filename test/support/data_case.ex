@@ -20,23 +20,26 @@ defmodule CatOnDuty.DataCase do
 
   using do
     quote do
-      alias CatOnDuty.Repo
-
+      import CatOnDuty.DataCase
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import CatOnDuty.DataCase
+
+      alias CatOnDuty.Repo
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(CatOnDuty.Repo)
-
-    unless tags[:async] do
-      Sandbox.mode(CatOnDuty.Repo, {:shared, self()})
-    end
-
+    CatOnDuty.DataCase.setup_sandbox(tags)
     :ok
+  end
+
+  @doc """
+  Sets up the sandbox based on the test tags.
+  """
+  def setup_sandbox(tags) do
+    pid = Sandbox.start_owner!(CatOnDuty.Repo, shared: not tags[:async])
+    on_exit(fn -> Sandbox.stop_owner(pid) end)
   end
 
   @doc """

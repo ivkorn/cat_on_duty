@@ -4,45 +4,35 @@ defmodule CatOnDutyWeb.SentryLive.Show do
   use CatOnDutyWeb, :live_view
 
   alias CatOnDuty.Employees
+  alias Phoenix.LiveView.Socket
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     :ok = Employees.subscribe()
 
-    {:ok, fetch(socket, id)}
+    {:ok, local_fetch(socket, id)}
   end
 
   @impl true
-  def handle_info(
-        {Employees, [:sentry, :deleted], %{id: deleted_id}},
-        %{assigns: %{sentry: sentry}} = socket
-      ) do
+  def handle_info({Employees, [:sentry, :deleted], %{id: deleted_id}}, %{assigns: %{sentry: sentry}} = socket) do
     if deleted_id == sentry.id do
-      {:noreply,
-       socket
-       |> push_redirect(to: Routes.sentry_index_path(socket, :index))}
+      {:noreply, push_navigate(socket, to: ~p"/sentries")}
     else
       {:noreply, socket}
     end
   end
 
-  def handle_info(
-        {Employees, [:sentry | _], %{id: updated_id}},
-        %{assigns: %{sentry: sentry}} = socket
-      ) do
+  def handle_info({Employees, [:sentry | _], %{id: updated_id}}, %{assigns: %{sentry: sentry}} = socket) do
     if updated_id == sentry.id do
-      {:noreply, fetch(socket, sentry.id)}
+      {:noreply, local_fetch(socket, sentry.id)}
     else
       {:noreply, socket}
     end
   end
 
-  def handle_info(
-        {Employees, [:team | _], %{id: updated_team_id}},
-        %{assigns: %{sentry: sentry}} = socket
-      ) do
+  def handle_info({Employees, [:team | _], %{id: updated_team_id}}, %{assigns: %{sentry: sentry}} = socket) do
     if updated_team_id == sentry.team_id do
-      {:noreply, fetch(socket, sentry.id)}
+      {:noreply, local_fetch(socket, sentry.id)}
     else
       {:noreply, socket}
     end
@@ -68,7 +58,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
     {:noreply,
      socket
      |> put_flash(:info, dgettext("flash", "Sentry deleted"))
-     |> push_redirect(to: Routes.sentry_index_path(socket, :index))}
+     |> push_navigate(to: ~p"/sentries")}
   end
 
   @spec page_title(:show | :edit_sentry, Employees.Sentry.t()) :: String.t()
@@ -76,6 +66,6 @@ defmodule CatOnDutyWeb.SentryLive.Show do
 
   defp page_title(:edit_sentry, _sentry), do: dgettext("form", "Edit sentry")
 
-  @spec fetch(Phoenix.LiveView.Socket.t(), pos_integer) :: Phoenix.LiveView.Socket.t()
-  defp fetch(socket, id), do: assign(socket, :sentry, Employees.get_sentry!(id))
+  @spec local_fetch(Socket.t(), pos_integer) :: Socket.t()
+  defp local_fetch(socket, id), do: assign(socket, :sentry, Employees.get_sentry!(id))
 end

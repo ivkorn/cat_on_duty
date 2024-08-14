@@ -16,12 +16,12 @@ config :cat_on_duty, CatOnDuty.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :cat_on_duty, CatOnDutyWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: 4001],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    npx: ["rollup", "-c", "rollup.config.js", "-w"]
   ]
 
 # ## SSL Support
@@ -62,9 +62,10 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
+# Initialize plugs at runtime for faster development compilation
+config :phoenix, :plug_init_mode, :runtime
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
-# Initialize plugs at runtime for faster development compilation
-config :phoenix, :plug_init_mode, :runtime
+config :phoenix_live_view, debug_heex_annotations: true

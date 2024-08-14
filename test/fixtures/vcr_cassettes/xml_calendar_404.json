@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://xmlcalendar.ru/data/ru/1999/calendar.xml",
+      "headers": {
+        "accept": "text/xml"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "<html>\n<head>\n<title>xmlcalendar.ru - 404 Error - Document Not Found</title>\n</head>\n\n<body>\n\n<h1>404 - Document Not Found</h1>\n<p>\n\n<blockquote>\n\nThe requested object or URL, &nbsp; <b><!--#echo var=\"REDIRECT_URL\"--></b>   \nwas not found on this server.<P>\n\nThe link you followed is either outdated, inaccurate, or the server has been\ninstructed not to let you have it.<P>\n\n</blockquote>\n\n                                                                 \n</body>\n</html>               ",
+      "headers": {
+        "date": "Tue, 06 Aug 2024 08:43:55 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "server": "Apache",
+        "x-powered-by": "PHP/7.3.33"
+      },
+      "status_code": 404
+    }
+  }
+]

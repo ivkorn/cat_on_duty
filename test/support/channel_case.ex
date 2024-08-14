@@ -22,8 +22,8 @@ defmodule CatOnDutyWeb.ChannelCase do
   using do
     quote do
       # Import conveniences for testing with channels
-      import Phoenix.ChannelTest
       import CatOnDutyWeb.ChannelCase
+      import Phoenix.ChannelTest
 
       # The default endpoint for testing
       @endpoint CatOnDutyWeb.Endpoint

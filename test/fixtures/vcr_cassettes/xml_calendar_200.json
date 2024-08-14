@@ -1,0 +1,31 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://xmlcalendar.ru/data/ru/2023/calendar.xml",
+      "headers": {
+        "accept": "text/xml"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<calendar year=\"2023\" lang=\"ru\" date=\"2022.08.07\" country=\"ru\">\n    <holidays>\n        <holiday id=\"1\" title=\"Новогодние каникулы\"/>\n        <holiday id=\"2\" title=\"Рождество Христово\"/>\n        <holiday id=\"3\" title=\"День защитника Отечества\"/>\n        <holiday id=\"4\" title=\"Международный женский день\"/>\n        <holiday id=\"5\" title=\"Праздник Весны и Труда\"/>\n        <holiday id=\"6\" title=\"День Победы\"/>\n        <holiday id=\"7\" title=\"День России\"/>\n        <holiday id=\"8\" title=\"День народного единства\"/>\n    </holidays>\n    <days>\n        <day d=\"01.01\" t=\"1\" h=\"1\"/>\n        <day d=\"01.02\" t=\"1\" h=\"1\"/>\n        <day d=\"01.03\" t=\"1\" h=\"1\"/>\n        <day d=\"01.04\" t=\"1\" h=\"1\"/>\n        <day d=\"01.05\" t=\"1\" h=\"1\"/>\n        <day d=\"01.06\" t=\"1\" h=\"1\"/>\n        <day d=\"01.07\" t=\"1\" h=\"2\"/>\n        <day d=\"01.08\" t=\"1\" h=\"1\"/>\n        <day d=\"02.22\" t=\"2\"/>\n        <day d=\"02.23\" t=\"1\" h=\"3\"/>\n        <day d=\"02.24\" t=\"1\" f=\"01.01\"/>\n        <day d=\"03.07\" t=\"2\"/>\n        <day d=\"03.08\" t=\"1\" h=\"4\"/>\n        <day d=\"05.01\" t=\"1\" h=\"5\"/>\n        <day d=\"05.08\" t=\"1\" f=\"01.08\"/>\n        <day d=\"05.09\" t=\"1\" h=\"6\"/>\n        <day d=\"06.12\" t=\"1\" h=\"7\"/>\n        <day d=\"11.03\" t=\"2\"/>\n        <day d=\"11.04\" t=\"1\" h=\"8\"/>\n        <day d=\"11.06\" t=\"1\" f=\"11.04\"/>\n    </days>\n</calendar>",
+      "headers": {
+        "date": "Tue, 06 Aug 2024 08:43:55 GMT",
+        "content-type": "text/xml",
+        "content-length": "1477",
+        "connection": "keep-alive",
+        "server": "Apache",
+        "last-modified": "Wed, 28 Dec 2022 11:53:05 GMT",
+        "etag": "\"5c5-5f0e202e7ae9a\"",
+        "accept-ranges": "bytes",
+        "vary": "Accept-Encoding"
+      },
+      "status_code": 200
+    }
+  }
+]

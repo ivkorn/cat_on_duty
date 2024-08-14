@@ -2,16 +2,18 @@ defmodule CatOnDuty.Employees.Team do
   @moduledoc "Team model"
 
   use Ecto.Schema
+
   import Ecto.Changeset
 
   alias CatOnDuty.Employees.Sentry
+  alias Ecto.Association.NotLoaded
 
   @type t :: %__MODULE__{
           id: pos_integer | nil,
           name: String.t() | nil,
           tg_chat_id: String.t() | nil,
-          sentries: [Sentry.t()] | [] | Ecto.Association.NotLoaded.t(),
-          today_sentry: Sentry.t() | nil | Ecto.Association.NotLoaded.t(),
+          sentries: [Sentry.t()] | [] | NotLoaded.t(),
+          today_sentry: Sentry.t() | nil | NotLoaded.t(),
           inserted_at: NaiveDateTime.t() | nil,
           updated_at: NaiveDateTime.t() | nil
         }
@@ -26,6 +28,10 @@ defmodule CatOnDuty.Employees.Team do
     timestamps()
   end
 
+  def form_changeset(attrs \\ %{}) do
+    cast(%__MODULE__{}, attrs, ~w[name tg_chat_id]a)
+  end
+
   @spec changeset(t, map) :: Ecto.Changeset.t()
   def changeset(team, attrs) do
     team
@@ -35,7 +41,6 @@ defmodule CatOnDuty.Employees.Team do
 
   @spec today_sentry_changeset(t, %{today_sentry_id: pos_integer | nil}) :: Ecto.Changeset.t()
   def today_sentry_changeset(team, attrs) do
-    team
-    |> cast(attrs, ~w[today_sentry_id]a)
+    cast(team, attrs, ~w[today_sentry_id]a)
   end
 end

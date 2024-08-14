@@ -9,40 +9,40 @@
 msgid ""
 msgstr ""
 "Language: ru\n"
-"Plural-Forms: nplurals=3\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100 != 11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:40
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:43
 #, elixir-autogen, elixir-format
 msgid "Sentry changed"
 msgstr "Дежурный изменен"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:65
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:68
 #, elixir-autogen, elixir-format
 msgid "Sentry added"
 msgstr "Дежурный добавлен"
 
-#: lib/cat_on_duty_web/live/sentry_live/show.ex:70
-#: lib/cat_on_duty_web/live/team_live/show.ex:85
+#: lib/cat_on_duty_web/live/sentry_live/show.ex:60
+#: lib/cat_on_duty_web/live/team_live/show.ex:81
 #, elixir-autogen, elixir-format
 msgid "Sentry deleted"
 msgstr "Дежурный удален"
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:52
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:55
 #, elixir-autogen, elixir-format
 msgid "Team added"
 msgstr "Команда добавлена"
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:39
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:42
 #, elixir-autogen, elixir-format
 msgid "Team changed"
 msgstr "Команда изменена"
 
-#: lib/cat_on_duty_web/live/team_live/show.ex:72
+#: lib/cat_on_duty_web/live/team_live/show.ex:68
 #, elixir-autogen, elixir-format
 msgid "Team deleted"
 msgstr "Команда удалена"
 
-#: lib/cat_on_duty_web/live/team_live/show.ex:94
+#: lib/cat_on_duty_web/live/team_live/show.ex:90
 #, elixir-autogen, elixir-format
 msgid "Team today sentry rotated"
 msgstr "Ротация дежурных запущена"

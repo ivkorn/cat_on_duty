@@ -20,12 +20,12 @@ if System.get_env("PHX_SERVER") do
   config :actorrrate, CatOnDutyWeb.Endpoint, server: true
 end
 
-username = System.fetch_env!("LOGIN")
-password = System.fetch_env!("PASSWORD")
+username = System.get_env("LOGIN", "login")
+password = System.get_env("PASSWORD", "password")
 
 config :cat_on_duty, :basic_auth, username: username, password: password
 
-config :nadia, token: {:system, "TG_BOT_TOKEN"}
+config :telegex, caller_adapter: Finch, token: System.get_env("TG_BOT_TOKEN")
 
 if config_env() == :prod do
   secret_key_base = System.fetch_env!("SECRET_KEY_BASE")
@@ -35,14 +35,14 @@ if config_env() == :prod do
   db_pool_size = System.get_env("DB_POOL_SIZE", "18")
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
+  config :cat_on_duty, CatOnDuty.Repo,
+    ssl: true,
+    url: database_url,
+    pool_size: String.to_integer(db_pool_size)
+
   config :cat_on_duty, CatOnDutyWeb.Endpoint,
     url: [scheme: "https", host: host, port: 443],
     http: [ip: {0, 0, 0, 0, 0, 0, 0, 0}, port: port],
     secret_key_base: secret_key_base,
     socket_options: maybe_ipv6
-
-  config :cat_on_duty, CatOnDuty.Repo,
-    ssl: true,
-    url: database_url,
-    pool_size: String.to_integer(db_pool_size)
 end

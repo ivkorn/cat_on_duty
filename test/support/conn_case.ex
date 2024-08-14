@@ -17,29 +17,22 @@ defmodule CatOnDutyWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
-  alias Ecto.Adapters.SQL.Sandbox
-
   using do
     quote do
-      # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
+      use CatOnDutyWeb, :verified_routes
+
       import CatOnDutyWeb.ConnCase
-
-      alias CatOnDutyWeb.Router.Helpers, as: Routes
-
+      import Phoenix.ConnTest
+      import Plug.Conn
       # The default endpoint for testing
       @endpoint CatOnDutyWeb.Endpoint
+
+      # Import conveniences for testing with connections
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(CatOnDuty.Repo)
-
-    unless tags[:async] do
-      Sandbox.mode(CatOnDuty.Repo, {:shared, self()})
-    end
-
+    CatOnDuty.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

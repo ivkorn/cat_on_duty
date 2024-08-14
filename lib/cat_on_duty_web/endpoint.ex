@@ -7,12 +7,12 @@ defmodule CatOnDutyWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_cat_on_duty_key",
-    signing_salt: "StbQKSpU"
+    signing_salt: "39/x7Ywg",
+    same_site: "Lax"
   ]
 
-  # NOTE: `timeout: 45_000` is ONLY for heroku
-  socket "/live", Phoenix.LiveView.Socket,
-    websocket: [connect_info: [session: @session_options], timeout: 45_000]
+  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  # longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -22,7 +22,7 @@ defmodule CatOnDutyWeb.Endpoint do
     at: "/",
     from: :cat_on_duty,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: CatOnDutyWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

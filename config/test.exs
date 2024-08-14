@@ -20,5 +20,8 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
 
 config :cat_on_duty, Oban, testing: :inline
 
+config :exvcr,
+  vcr_cassette_library_dir: "test/fixtures/vcr_cassettes"
+
 # Print only warnings and errors during test
 config :logger, level: :warn

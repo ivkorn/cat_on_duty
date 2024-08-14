@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Language: ru\n"
-"Plural-Forms: nplurals=3\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100 != 11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
 
-#: lib/cat_on_duty_web/services/rotate_sentries_and_notify.ex:75
+#: lib/cat_on_duty/services/rotate_today_sentry_and_notify.ex:73
 #, elixir-autogen, elixir-format
 msgid "❗Today's duty is on %{name}(%{username})"
 msgstr "❗На дежурство заступает %{name}(%{username})"
