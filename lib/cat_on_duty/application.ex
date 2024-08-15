@@ -11,7 +11,7 @@ defmodule CatOnDuty.Application do
       CatOnDuty.Repo,
       {Ecto.Migrator,
         repos: Application.fetch_env!(:cat_on_duty, :ecto_repos),
-        skip: skip_migrations?()},
+        skip: true},
       # Start the Telemetry supervisor
       CatOnDutyWeb.Telemetry,
       # Start the PubSub system
@@ -38,10 +38,5 @@ defmodule CatOnDuty.Application do
     CatOnDutyWeb.Endpoint.config_change(changed, removed)
 
     :ok
-  end
-
-  defp skip_migrations?() do
-    # By default, sqlite migrations are run when using a release
-    System.get_env("RELEASE_NAME") != nil
   end
 end
