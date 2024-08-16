@@ -1,0 +1,48 @@
+- name: Setup server playbook
+  hosts: servers
+  tasks:
+    - name: Update system
+      ansible.builtin.apt:
+        upgrade: safe
+        update_cache: true
+    - name: Install required packages
+      ansible.builtin.apt:
+        name:
+          - bash
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg2
+          - software-properties-common
+        state: present
+    - name: Add Docker GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+    - name: Get arch
+      ansible.builtin.command: dpkg --print-architecture
+      register: arch_version
+      changed_when: false
+    - name: Add Docker repository
+      ansible.builtin.apt_repository:
+        repo: deb [arch={{ arch_version.stdout }}] https://download.docker.com/linux/debian {{ ansible_facts.distribution_release }} stable
+        state: present
+    - name: Install Docker
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        state: present
+    - name: Start Docker service
+      ansible.builtin.service:
+        name: docker
+        enabled: true
+        state: started

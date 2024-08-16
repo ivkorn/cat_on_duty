@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "npm run build -- -w"
   },
   "license": "MIT",
   "devDependencies": {

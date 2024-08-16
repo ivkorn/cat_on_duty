@@ -19,7 +19,7 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    npx: ["rollup", "-c", "rollup.config.js", "-w"]
+    npm: ["run", "build:watch"]
   ]
 
 # ## SSL Support

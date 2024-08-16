@@ -39,6 +39,8 @@ npm-debug.log
 # Enviroment variables
 .envrc
 
+.vault
+
 priv/dialyzer/local/
 
 node_modules/
