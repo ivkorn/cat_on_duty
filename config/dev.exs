@@ -21,7 +21,7 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    npx: ["rollup", "-c", "rollup.config.js", "-w"]
+    npm: ["run", "build:watch"]
   ]
 
 # ## SSL Support
@@ -68,4 +68,4 @@ config :phoenix, :plug_init_mode, :runtime
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
-config :phoenix_live_view, debug_heex_annotations: true
+config :phoenix_live_view, debug_heex_annotations: true, enable_expensive_runtime_checks: true
