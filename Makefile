@@ -19,3 +19,12 @@ gettext:
 
 seed:
 	mix run priv/repo/seeds.exs
+
+encrypt-server-setup:
+	ansible-vault encrypt ansible/hosts.yml --vault-password-file .vault
+
+decrypt-server-setup:
+	ansible-vault decrypt ansible/hosts.yml --vault-password-file .vault
+
+setup-server:
+	ansible-playbook ansible/setup.yml -i ansible/hosts.yml -u root --vault-password-file .vault
