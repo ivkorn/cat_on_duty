@@ -17,6 +17,7 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
   live_view: [signing_salt: "FKUqp7jQ"]
 
 config :cat_on_duty, Oban,
+  engine: Oban.Engines.Lite,
   repo: CatOnDuty.Repo,
   queues: [
     rotation: 1
@@ -31,13 +32,6 @@ config :cat_on_duty, Oban,
 config :cat_on_duty,
   ecto_repos: [CatOnDuty.Repo]
 
-config :esbuild,
-  version: "0.12.18",
-  default: [
-    args: ~w(js/app.js --bundle --target=es2016 --outdir=../priv/static/assets),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ]
 
 config :gettext, :default_locale, "ru"
 

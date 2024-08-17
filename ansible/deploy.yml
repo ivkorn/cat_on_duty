@@ -1,0 +1,38 @@
+- name: Setup server playbook
+  hosts: server
+  tasks:
+    - name: Fail if release_version is empty
+      ansible.builtin.fail:
+        msg: Error. You must pass release version!
+      when: not release_version
+    - name: Log into DockerHub
+      community.docker.docker_login:
+        username: "{{ docker.username }}"
+        password: "{{ docker.password }}"
+    - name: Launch docker container
+      community.docker.docker_container:
+        name: cat_on_duty
+        image: "ivkorn/cat_on_duty:{{ release_version }}"
+        restart_policy: always
+        state: started
+        ports: "{{ exposed_ports }}"
+        mounts:
+          - source: "{{ server.env.database_dir }}"
+            target: "{{ docker.env.database_dir }}"
+            propagation: shared
+            read_only: false
+            type: bind
+        env:
+          ERL_EPMD_PORT: "{{ docker.env.erl.epmd_port }}"
+          ELIXIR_ERL_OPTIONS: "{{ docker.env.erl.options }}"
+          RELEASE_DISTRIBUTION: name
+          RELEASE_NAME: "{{ docker.env.release.name }}"
+          RELEASE_NODE: "{{ docker.env.release.name }}@{{ ansible_ssh_host }}"
+          RELEASE_COOKIE: "{{ docker.env.release.cookie }}"
+          PHX_HOST: "{{ ansible_ssh_host }}"
+          PORT: "{{ docker.env.port }}"
+          SECRET_KEY_BASE: "{{ docker.env.secret_key_base }}"
+          DATABASE_PATH: "{{ docker.env.database_dir }}/{{ docker.env.database_name }}"
+          LOGIN: "{{ docker.env.login }}"
+          PASSWORD: "{{ docker.env.password }}"
+          TG_BOT_TOKEN: "{{ docker.env.tg_bot_token }}"

@@ -17,7 +17,7 @@ import Config
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
 if System.get_env("PHX_SERVER") do
-  config :actorrrate, CatOnDutyWeb.Endpoint, server: true
+  config :cat_on_duty, CatOnDutyWeb.Endpoint, server: true
 end
 
 username = System.get_env("LOGIN", "login")
@@ -31,13 +31,12 @@ if config_env() == :prod do
   secret_key_base = System.fetch_env!("SECRET_KEY_BASE")
   host = System.get_env("PHX_HOST")
   port = String.to_integer(System.get_env("PORT") || "4000")
-  database_url = System.fetch_env!("DATABASE_URL")
-  db_pool_size = System.get_env("DB_POOL_SIZE", "18")
+  database_path = System.fetch_env!("DATABASE_PATH")
+  db_pool_size = System.get_env("DB_POOL_SIZE", "5")
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   config :cat_on_duty, CatOnDuty.Repo,
-    ssl: true,
-    url: database_url,
+    database: database_path,
     pool_size: String.to_integer(db_pool_size)
 
   config :cat_on_duty, CatOnDutyWeb.Endpoint,

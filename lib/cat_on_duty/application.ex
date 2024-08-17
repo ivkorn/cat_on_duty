@@ -9,6 +9,7 @@ defmodule CatOnDuty.Application do
     children = [
       # Start the Ecto repository
       CatOnDuty.Repo,
+      {Ecto.Migrator, repos: Application.fetch_env!(:cat_on_duty, :ecto_repos), skip: skip_migrations?()},
       # Start the Telemetry supervisor
       CatOnDutyWeb.Telemetry,
       # Start the PubSub system
@@ -35,5 +36,9 @@ defmodule CatOnDuty.Application do
     CatOnDutyWeb.Endpoint.config_change(changed, removed)
 
     :ok
+  end
+
+  def skip_migrations? do
+    if Mix.env() == :prod, do: false, else: true
   end
 end

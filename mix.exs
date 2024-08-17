@@ -36,7 +36,7 @@ defmodule CatOnDuty.MixProject do
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.6"},
       {:ecto_sql, "~> 3.11"},
-      {:postgrex, ">= 0.0.0"},
+      {:ecto_sqlite3, ">= 0.0.0"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_view, "~> 1.0.0-rc.6"},
       {:phoenix_live_dashboard, "~> 0.8"},
@@ -49,7 +49,6 @@ defmodule CatOnDuty.MixProject do
       {:oban, "~> 2.18"},
       {:telegex, "~> 1.8.0"},
       {:finch, "~> 0.18"},
-      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:ecto_erd, "~> 0.6", only: :dev, runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
@@ -73,8 +72,6 @@ defmodule CatOnDuty.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end

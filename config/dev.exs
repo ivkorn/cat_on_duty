@@ -2,12 +2,10 @@ import Config
 
 # Configure your database
 config :cat_on_duty, CatOnDuty.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "cat_on_duty_dev",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  database: Path.expand("../cat_on_duty_dev.db", __DIR__),
+  pool_size: 5,
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

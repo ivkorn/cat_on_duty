@@ -1,5 +1,5 @@
 - name: Setup server playbook
-  hosts: servers
+  hosts: server
   tasks:
     - name: Update system
       ansible.builtin.apt:
@@ -8,12 +8,16 @@
     - name: Install required packages
       ansible.builtin.apt:
         name:
+          - python3
+          - python3-pip
+          - python3-requests
           - bash
           - apt-transport-https
           - ca-certificates
           - curl
           - gnupg2
           - software-properties-common
+          - sqlite3
         state: present
     - name: Add Docker GPG key
       ansible.builtin.apt_key:
@@ -46,3 +50,15 @@
         name: docker
         enabled: true
         state: started
+    - name: Create database dir
+      ansible.builtin.file:
+        path: "{{ server.env.database_dir }}"
+        mode: '666'
+        state: directory
+    - name: Create database
+      ansible.builtin.file:
+        path: "{{ server.env.database_dir }}/{{ server.env.database_name }}"
+        mode: '777'
+        state: touch
+        modification_time: preserve
+        access_time: preserve
