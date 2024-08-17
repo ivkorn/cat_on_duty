@@ -1,4 +1,6 @@
 ARGS = $(filter-out $@,$(MAKECMDGOALS))
+%:
+	@:
 
 lint:
 	mix do format --check-formatted, credo, dialyzer --quiet-with-result
@@ -23,11 +25,26 @@ gettext:
 seed:
 	mix run priv/repo/seeds.exs
 
+docker-build:
+	docker build -t ivkorn/cat_on_duty:$(ARGS) -t ivkorn/cat_on_duty:latest .
+
+docker-push:
+	docker push ivkorn/cat_on_duty:$(ARGS)
+	docker push ivkorn/cat_on_duty:latest
+
 encrypt-server-setup:
-	ansible-vault encrypt ansible/hosts.yml --vault-password-file .vault
+	ansible-vault encrypt ansible/hosts.yml ansible/host_vars/server.yml --vault-password-file .vault
 
 decrypt-server-setup:
-	ansible-vault decrypt ansible/hosts.yml --vault-password-file .vault
+	ansible-vault decrypt ansible/hosts.yml ansible/host_vars/server.yml --vault-password-file .vault
 
-setup-server:
+server-setup:
 	ansible-playbook ansible/setup.yml -i ansible/hosts.yml -u root --vault-password-file .vault
+
+server-deploy:
+	ansible-playbook ansible/deploy.yml -i ansible/hosts.yml -u root --vault-password-file .vault --extra-vars "release_version=$(ARGS)"
+
+build-deploy:
+	@make docker-build $(ARGS)
+	@make docker-push $(ARGS)
+	@make server-deploy $(ARGS)
