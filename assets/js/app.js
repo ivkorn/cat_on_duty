@@ -23,6 +23,7 @@ import 'phoenix_html';
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from 'phoenix';
 import { LiveSocket } from 'phoenix_live_view';
+import * as topbar from 'topbar';
 import hooks from './hooks';
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
@@ -32,9 +33,9 @@ const liveSocket = new LiveSocket('/live', Socket, {
 });
 
 // Show progress bar on live navigation and form submits
-// topbar.config({ barColors: { 0: '#29d' }, shadowColor: 'rgba(0, 0, 0, .3)' });
-// window.addEventListener('phx:page-loading-start', () => topbar.show(300));
-// window.addEventListener('phx:page-loading-stop', () => topbar.hide());
+topbar.config({ barColors: { 0: '#29d' }, shadowColor: 'rgba(0, 0, 0, .3)' });
+window.addEventListener('phx:page-loading-start', () => topbar.show(300));
+window.addEventListener('phx:page-loading-stop', () => topbar.hide());
 
 // connect if there are any LiveViews on the page
 liveSocket.connect();

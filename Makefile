@@ -39,10 +39,10 @@ decrypt-server-setup:
 	ansible-vault decrypt ansible/hosts.yml ansible/host_vars/server.yml --vault-password-file .vault
 
 server-setup:
-	ansible-playbook ansible/setup.yml -i ansible/hosts.yml -u root --vault-password-file .vault
+	ansible-playbook ansible/setup.yml -i ansible/hosts.yml --vault-password-file .vault
 
 server-deploy:
-	ansible-playbook ansible/deploy.yml -i ansible/hosts.yml -u root --vault-password-file .vault --extra-vars "release_version=$(ARGS)"
+	ansible-playbook ansible/deploy.yml -i ansible/hosts.yml --vault-password-file .vault --extra-vars "release_version=$(ARGS)"
 
 build-deploy:
 	@make docker-build $(ARGS)

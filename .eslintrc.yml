@@ -1,19 +1,16 @@
 ---
 root: true
-
 env:
   node: true
   browser: true
-
 extends:
   - "airbnb-base"
-
 parserOptions:
   ecmaVersion: 2024
-
 ignorePatterns:
   - "node_modules/**/*"
   - "priv/**/*"
   - "deps/**/*"
   - "_build/**/*"
+  - "esbuild/**/*"
   - "!assets/js/**/*.js"

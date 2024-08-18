@@ -39,6 +39,6 @@ defmodule CatOnDuty.Application do
   end
 
   def skip_migrations? do
-    if Mix.env() == :prod, do: false, else: true
+    if System.get_env("MIX_ENV") == "prod", do: false, else: true
   end
 end

@@ -23,14 +23,13 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
 FROM ${ASSETS_BUILDER_IMAGE} AS assets_builder
 
-RUN apt-get update -y && apt-get clean && rm -f /var/lib/apt/lists/*_*
-
 WORKDIR /app
 
 ENV NODE_ENV="prod"
 
 COPY assets assets
-COPY package.json package-lock.json rollup.config.js ./
+COPY esbuild esbuild
+COPY package.json package-lock.json ./
 
 RUN npm install --omit=dev
 
