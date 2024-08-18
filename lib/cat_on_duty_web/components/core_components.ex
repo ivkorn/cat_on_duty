@@ -53,6 +53,7 @@ defmodule CatOnDutyWeb.CoreComponents do
       aria-modal="true"
       aria-labelledby={"modal-label-#{@id}"}
       role="dialog"
+      data-bs-backdrop="static"
     >
       <div class="modal-dialog">
         <div class="modal-content">

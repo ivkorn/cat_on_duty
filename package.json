@@ -12,7 +12,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "postcss-scss": "^4.0.9",
-    "stylelint": "^16.8.1",
+    "stylelint": "^16.8.2",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-config-standard-scss": "^13.1.0"
   },
@@ -31,7 +31,7 @@
     "phoenix_html": "^3.3.4",
     "phoenix_live_view": "^1.0.0-rc.6",
     "postcss": "^8.4.41",
-    "rollup": "^4.20.0",
+    "rollup": "^4.21.0",
     "rollup-plugin-sass": "^1.13.1",
     "sass": "^1.77.8",
     "topbar": "^3.0.0"
