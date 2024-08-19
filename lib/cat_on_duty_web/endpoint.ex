@@ -6,8 +6,9 @@ defmodule CatOnDutyWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_cat_on_duty_key",
-    signing_salt: "39/x7Ywg",
+    key: "_cat_on_duty_session",
+    signing_salt: {Application, :fetch_env!, [:cat_on_duty, :session_signing_salt]},
+    encryption_salt: {Application, :fetch_env!, [:cat_on_duty, :session_encryption_salt]},
     same_site: "Lax"
   ]
 

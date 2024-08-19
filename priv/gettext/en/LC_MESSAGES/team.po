@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:12
+#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:10
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Name"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Teams"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:13
+#: lib/cat_on_duty_web/live/team_live/form_component.html.heex:11
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Telegram chat ID"

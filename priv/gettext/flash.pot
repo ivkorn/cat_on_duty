@@ -26,12 +26,12 @@ msgstr ""
 msgid "Sentry deleted"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:55
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:53
 #, elixir-autogen, elixir-format
 msgid "Team added"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:42
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:40
 #, elixir-autogen, elixir-format
 msgid "Team changed"
 msgstr ""

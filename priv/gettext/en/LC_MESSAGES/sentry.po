@@ -11,46 +11,46 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:12
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:27
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:62
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:10
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:28
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:13
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:28
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:11
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:29
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:16
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:63
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "Telegram username"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:17
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:29
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:15
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:30
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Team"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:25
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:30
+#: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:23
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:31
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:38
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:65
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:66
 #, elixir-autogen, elixir-format
 msgid "On vacation?"
 msgstr ""
 
-#: lib/cat_on_duty_web/components/layouts/root.html.heex:26
+#: lib/cat_on_duty_web/components/layouts/root.html.heex:24
 #: lib/cat_on_duty_web/live/sentry_live/index.ex:52
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:1
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:58
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:59
 #, elixir-autogen, elixir-format
 msgid "Sentries"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:33
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:64
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:65
 #, elixir-autogen, elixir-format
 msgid "Last duty"
 msgstr ""

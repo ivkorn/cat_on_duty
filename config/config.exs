@@ -29,9 +29,12 @@ config :cat_on_duty, Oban,
      ]}
   ]
 
+config :cat_on_duty, :basic_auth, username: "l", password: "p"
+config :cat_on_duty, :session_encryption_salt, "session_encryption_salt"
+config :cat_on_duty, :session_signing_salt, "session_signing_salt"
+
 config :cat_on_duty,
   ecto_repos: [CatOnDuty.Repo]
-
 
 config :gettext, :default_locale, "ru"
 

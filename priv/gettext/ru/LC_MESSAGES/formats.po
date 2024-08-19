@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100 != 11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
 
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:34
-#: lib/cat_on_duty_web/live/team_live/show.html.heex:74
+#: lib/cat_on_duty_web/live/team_live/show.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "date"
 msgstr "%d.%m.%Y"

@@ -9,7 +9,7 @@ config :cat_on_duty, CatOnDuty.Repo,
   database: Path.expand("../cat_on_duty_test.db", __DIR__),
   pool_size: 5,
   busy_timeout: 5000,
-  cache_size: 1000000000,
+  cache_size: 1_000_000_000,
   temp_store: :memory,
   pool: Ecto.Adapters.SQL.Sandbox
 
