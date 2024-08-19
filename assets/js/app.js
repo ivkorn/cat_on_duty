@@ -28,8 +28,9 @@ import hooks from './hooks';
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 const liveSocket = new LiveSocket('/live', Socket, {
-  // longPollFallbackMs: 2500,
-  params: { _csrf_token: csrfToken }, hooks,
+  longPollFallbackMs: 2500,
+  params: { _csrf_token: csrfToken },
+  hooks,
 });
 
 // Show progress bar on live navigation and form submits
