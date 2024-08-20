@@ -20,5 +20,5 @@ defmodule CatOnDutyWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :cat_on_duty
+  use Gettext.Backend, otp_app: :cat_on_duty
 end
