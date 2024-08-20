@@ -2,8 +2,8 @@ defmodule CatOnDuty.Employees.Sentry do
   @moduledoc "Sentry model"
 
   use Ecto.Schema
-
   use Gettext, backend: CatOnDutyWeb.Gettext
+
   import Ecto.Changeset
 
   alias CatOnDuty.Employees.Team

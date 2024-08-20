@@ -44,6 +44,7 @@ defmodule CatOnDutyWeb do
         layouts: [html: CatOnDutyWeb.Layouts]
 
       use Gettext, backend: CatOnDutyWeb.Gettext
+
       import Plug.Conn
 
       unquote(verified_routes())
@@ -82,8 +83,9 @@ defmodule CatOnDutyWeb do
 
   defp html_helpers do
     quote do
-      import CatOnDutyWeb.CoreComponents
       use Gettext, backend: CatOnDutyWeb.Gettext
+
+      import CatOnDutyWeb.CoreComponents
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
