@@ -5,8 +5,16 @@
 
 version: 2
 updates:
-  - package-ecosystem: "mix" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    open-pull-requests-limit: 1
+  - package-ecosystem: "mix"
+    directory: "/"
+    open-pull-requests-limit: 5
     schedule:
       interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/"
+    open-pull-requests-limit: 5
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "eslint"
+        versions: ["9.x"]
