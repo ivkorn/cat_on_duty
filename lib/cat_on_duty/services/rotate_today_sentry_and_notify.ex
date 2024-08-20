@@ -1,7 +1,7 @@
 defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
   @moduledoc "Serviice that provides functions for rotation and team or all teams today sentry"
 
-  import CatOnDutyWeb.Gettext
+  use Gettext, backend: CatOnDutyWeb.Gettext
 
   alias CatOnDuty.BusinessCalendar
   alias CatOnDuty.Employees

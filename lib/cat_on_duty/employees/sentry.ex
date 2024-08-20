@@ -3,7 +3,7 @@ defmodule CatOnDuty.Employees.Sentry do
 
   use Ecto.Schema
 
-  import CatOnDutyWeb.Gettext
+  use Gettext, backend: CatOnDutyWeb.Gettext
   import Ecto.Changeset
 
   alias CatOnDuty.Employees.Team
