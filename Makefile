@@ -6,7 +6,7 @@ lint:
 	mix do format --check-formatted, credo, dialyzer --quiet-with-result
 
 tests:
-	MIX_ENV=test mix do ecto.drop --quiet, ecto.create --quiet, ecto.migrate --quiet, test
+	MIX_ENV=test mix do ecto.drop --quiet, ecto.create --quiet, ecto.migrate --quiet, test $(ARGS)
 
 gen-erd:
 	tmp_erd_path="$$(mktemp -d)/ecto_erd.dot"; \
