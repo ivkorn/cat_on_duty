@@ -41,7 +41,7 @@ npm-debug.log
 
 .vault
 
-priv/dialyzer/local/
+priv/dialyzer/
 
 node_modules/
 
