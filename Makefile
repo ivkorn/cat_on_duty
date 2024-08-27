@@ -2,8 +2,15 @@ ARGS = $(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
 
-setup:
+setup-backend:
 	mix do deps.get, deps.compile, compile
+
+setup-frontend:
+	npm install
+
+setup:
+	@make backend-setup
+	@make frontend-setup
 
 check-formated:
 	mix format --check-formatted
@@ -20,16 +27,32 @@ dialyzer-ci:
 dialyzer:
 	mix dialyzer --quiet-with-result
 
+eslint:
+	npx eslint .
+
 lint:
 	@make check-formatted
 	@make credo
 	@make dialyzer
+	@make eslint
+
+audit-backend:
+	mix deps.audit
+
+audit-frontend:
+	npm audit --audit-level low
 
 audit:
-	mix deps.audit
+	@make audit-backend
+	@make audit-frontend
 
 tests:
 	MIX_ENV=test mix do ecto.drop --quiet, ecto.create --quiet, ecto.migrate --quiet, test $(ARGS)
+
+full-check:
+	@make lint
+	@make audit
+	@make tests
 
 gen-erd:
 	tmp_erd_path="$$(mktemp -d)/ecto_erd.dot"; \

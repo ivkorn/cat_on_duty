@@ -10,7 +10,20 @@ env:
   MIX_ENV: test
 
 jobs:
-  ci:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .tool-versions
+      - name: Setup
+        run: make setup-frontend
+      - name: ESlint
+        run: make eslint
+      - name: Audit
+        run: make audit-frontend
+  backend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,13 +33,13 @@ jobs:
           version-file: .tool-versions
           id: beam
       - name: Setup
-        run: make setup
+        run: make setup-backend
       - name: Check formatted
         run: make check-formated
       - name: Credo
         run: make credo
       - name: Audit
-        run: make audit
+        run: make audit-backend
       - name: Restore PLT cache
         uses: actions/cache/restore@v4
         id: plt_cache
