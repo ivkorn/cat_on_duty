@@ -10,7 +10,7 @@ defmodule CatOnDuty.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_apps: [:mix], plt_core_path: "priv/dialyzer/", plt_local_path: "priv/dialyzer/"]
+      dialyzer: [plt_add_apps: [:mix, :ex_unit], plt_core_path: "priv/dialyzer/", plt_local_path: "priv/dialyzer/"]
     ]
   end
 
