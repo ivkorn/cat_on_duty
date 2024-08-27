@@ -1,5 +1,10 @@
 name: Push docker image
 on:
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types: 
+      - completed
   push:
     tags:
       - "*"
@@ -7,6 +12,7 @@ on:
 
 jobs:
   build_and_push:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:

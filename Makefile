@@ -2,8 +2,31 @@ ARGS = $(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
 
+setup:
+	mix do deps.get, deps.compile, compile
+
+check-formated:
+	mix format --check-formatted
+
+credo:
+	mix credo
+
+plts-create:
+	mix dialyzer --plt
+
+dialyzer-ci:
+	mix dialyzer --format github
+
+dialyzer:
+	mix dialyzer --quiet-with-result
+
 lint:
-	mix do format --check-formatted, credo, dialyzer --quiet-with-result
+	@make check-formatted
+	@make credo
+	@make dialyzer
+
+audit:
+	mix deps.audit
 
 tests:
 	MIX_ENV=test mix do ecto.drop --quiet, ecto.create --quiet, ecto.migrate --quiet, test $(ARGS)

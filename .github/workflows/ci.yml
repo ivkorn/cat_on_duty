@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+env:
+  MIX_ENV: test
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        with:
+          version-type: strict
+          version-file: .tool-versions
+          id: beam
+      - name: Setup
+        run: make setup
+      - name: Check formatted
+        run: make check-formated
+      - name: Credo
+        run: make credo
+      - name: Audit
+        run: make audit
+      - name: Restore PLT cache
+        uses: actions/cache/restore@v4
+        id: plt_cache
+        with:
+          key: ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+          restore-keys: ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+          path: priv/dialyzer
+      - name: Create PLTs
+        if: steps.plt_cache.outputs.cache-hit != 'true'
+        run: make plts-create
+      - name: Save PLT cache
+        uses: actions/cache/save@v4
+        if: steps.plt_cache.outputs.cache-hit != 'true'
+        id: plt_cache_save
+        with:
+          key: ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+          path: priv/dialyzer
+      - name: Run dialyzer
+        run: make dialyzer-ci
+      - name: Test
+        run: make tests

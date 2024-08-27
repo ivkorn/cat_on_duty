@@ -41,7 +41,8 @@ npm-debug.log
 
 .vault
 
-priv/dialyzer/
+priv/dialyzer/*.plt
+priv/dialyzer/*.hash
 
 node_modules/
 
