@@ -1,15 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
 
-@media (min-width: 87.0rem) {
+@media (width >= 87.0rem) {
   .container {
     max-width: 1140px;
   }
 }
 
-@media (min-width: 40.0rem) {
+@media (width >= 40.0rem) {
   .logo {
     flex-basis: 527px;
     margin-top: 2rem;
-    margin-bottom: 2rem
+    margin-bottom: 2rem;
   }
 }

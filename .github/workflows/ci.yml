@@ -19,8 +19,10 @@ jobs:
           node-version-file: .tool-versions
       - name: Setup
         run: make setup-frontend
-      - name: ESlint
+      - name: ESLint
         run: make eslint
+      - name: Stylelint
+        run: make stylelint
       - name: Audit
         run: make audit-frontend
   backend:

@@ -27,14 +27,24 @@ dialyzer-ci:
 dialyzer:
 	mix dialyzer --quiet-with-result
 
-eslint:
-	npx eslint .
-
-lint:
+lint-backend:
 	@make check-formatted
 	@make credo
 	@make dialyzer
+
+eslint:
+	npx eslint .
+
+stylelint:
+	npx stylelint assets/**/*.scss
+
+lint-frontend:
 	@make eslint
+	@make stylelint
+
+lint:
+	@make lint-frontend
+	@make lint-backend
 
 audit-backend:
 	mix deps.audit

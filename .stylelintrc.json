@@ -10,8 +10,5 @@
             ],
             "customSyntax": "postcss-scss"
         }
-    ],
-    "ignoreFiles": [
-        "!assets/css/**/*.css"
     ]
 }
