@@ -52,12 +52,12 @@
         state: started
     - name: Create database dir
       ansible.builtin.file:
-        path: "{{ server.env.database_dir }}"
+        path: "{{ database_dir }}"
         mode: '666'
         state: directory
     - name: Create database
       ansible.builtin.file:
-        path: "{{ server.env.database_dir }}/{{ server.env.database_name }}"
+        path: "{{ database_path }}"
         mode: '777'
         state: touch
         modification_time: preserve

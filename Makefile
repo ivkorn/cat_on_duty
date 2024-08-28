@@ -81,17 +81,10 @@ gettext:
 seed:
 	mix run priv/repo/seeds.exs
 
-docker-build:
-	docker build -t ivkorn/cat_on_duty:$(ARGS) -t ivkorn/cat_on_duty:latest .
-
-docker-push:
-	docker push ivkorn/cat_on_duty:$(ARGS)
-	docker push ivkorn/cat_on_duty:latest
-
-encrypt-server-setup:
+encrypt:
 	ansible-vault encrypt ansible/hosts.yml ansible/host_vars/server.yml --vault-password-file .vault
 
-decrypt-server-setup:
+decrypt:
 	ansible-vault decrypt ansible/hosts.yml ansible/host_vars/server.yml --vault-password-file .vault
 
 server-setup:
@@ -99,8 +92,3 @@ server-setup:
 
 server-deploy:
 	ansible-playbook ansible/deploy.yml -i ansible/hosts.yml --vault-password-file .vault --extra-vars "release_version=$(ARGS)"
-
-build-deploy:
-	@make docker-build $(ARGS)
-	@make docker-push $(ARGS)
-	@make server-deploy $(ARGS)

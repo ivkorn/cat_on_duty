@@ -5,37 +5,33 @@
       ansible.builtin.fail:
         msg: Error. You must pass release version!
       when: not release_version
-    - name: Log into DockerHub
-      community.docker.docker_login:
-        username: "{{ docker.username }}"
-        password: "{{ docker.password }}"
     - name: Launch docker container
       community.docker.docker_container:
         name: cat_on_duty
-        image: "ivkorn/cat_on_duty:{{ release_version }}"
+        image: "{{ docker_image_name }}:{{ release_version }}"
         restart_policy: always
         state: started
-        ports: "{{ exposed_ports }}"
+        ports: "{{ docker_ports }}"
         mounts:
-          - source: "{{ server.env.database_dir }}"
-            target: "{{ docker.env.database_dir }}"
+          - source: "{{ database_dir }}"
+            target: "{{ env_database_dir }}"
             propagation: shared
             read_only: false
             type: bind
         env:
-          ERL_EPMD_PORT: "{{ docker.env.erl.epmd_port }}"
-          ELIXIR_ERL_OPTIONS: "{{ docker.env.erl.options }}"
+          ERL_EPMD_PORT: "{{ env_erl_epmd_port }}"
+          ELIXIR_ERL_OPTIONS: "{{ env_erl_options }}"
           RELEASE_DISTRIBUTION: name
-          RELEASE_NAME: "{{ docker.env.release.name }}"
-          RELEASE_NODE: "{{ docker.env.release.name }}@{{ ansible_ssh_host }}"
-          RELEASE_COOKIE: "{{ docker.env.release.cookie }}"
+          RELEASE_NAME: "{{ env_release_name }}"
+          RELEASE_NODE: "{{ env_release_name }}@{{ ansible_ssh_host }}"
+          RELEASE_COOKIE: "{{ env_release_cookie }}"
           PHX_HOST: "{{ ansible_ssh_host }}"
-          PORT: "{{ docker.env.port }}"
-          SECRET_KEY_BASE: "{{ docker.env.secret_key_base }}"
-          DATABASE_PATH: "{{ docker.env.database_dir }}/{{ docker.env.database_name }}"
-          LOGIN: "{{ docker.env.login }}"
-          PASSWORD: "{{ docker.env.password }}"
-          SESSION_ENCRYPTION_SALT: "{{ docker.env.session_encryption_salt }}"
-          SESSION_SIGNING_SALT: "{{ docker.env.session_signing_salt }}"
-          LIVE_VIEW_SIGNING_SALT: "{{ docker.env.live_view_signing_salt }}"
-          TG_BOT_TOKEN: "{{ docker.env.tg_bot_token }}"
+          PORT: "{{ env_port }}"
+          SECRET_KEY_BASE: "{{ env_secret_key_base }}"
+          DATABASE_PATH: "{{ env_database_path }}"
+          LOGIN: "{{ env_login }}"
+          PASSWORD: "{{ env_password }}"
+          SESSION_ENCRYPTION_SALT: "{{ env_session_encryption_salt }}"
+          SESSION_SIGNING_SALT: "{{ env_session_signing_salt }}"
+          LIVE_VIEW_SIGNING_SALT: "{{ env_live_view_signing_salt }}"
+          TG_BOT_TOKEN: "{{ env_tg_bot_token }}"
