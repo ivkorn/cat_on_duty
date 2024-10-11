@@ -24,7 +24,7 @@
     "phoenix_html": "^3.3.4",
     "phoenix_live_view": "^1.0.0-rc.6",
     "postcss": "^8.4.41",
-    "postcss-preset-env": "^10.0.2",
+    "postcss-preset-env": "^10.0.7",
     "sass": "^1.77.8",
     "topbar": "^3.0.0"
   },
