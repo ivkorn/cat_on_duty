@@ -53,7 +53,7 @@ defmodule CatOnDuty.MixProject do
       {:ecto_erd, "~> 0.6", only: :dev, runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:styler, "~> 1.0.0-rc.2", only: [:dev, :test], runtime: false},
+      {:styler, "~> 1.1.2", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
       {:temp, "~> 0.4", only: [:dev, :test]},
       {:floki, "~> 0.36", only: :test},
