@@ -33,7 +33,7 @@ defmodule CatOnDutyWeb.ChannelCase do
   setup tags do
     :ok = Sandbox.checkout(CatOnDuty.Repo)
 
-    unless tags[:async] do
+    if !tags[:async] do
       Sandbox.mode(CatOnDuty.Repo, {:shared, self()})
     end
 
