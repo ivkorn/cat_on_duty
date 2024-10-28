@@ -15,18 +15,15 @@ defmodule CatOnDutyWeb.SentryLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:form, to_form(changeset))
-     |> assign(:teams, Employees.list_teams())}
+     |> assign(:teams, Employees.list_teams())
+     |> assign_new(:form, fn -> to_form(changeset) end)}
   end
 
   @impl true
   def handle_event("validate", %{"sentry" => sentry_params}, socket) do
-    changeset =
-      socket.assigns.sentry
-      |> Employees.change_sentry(sentry_params)
-      |> Map.put(:action, :validate)
+    changeset = Employees.change_sentry(socket.assigns.sentry, sentry_params)
 
-    {:noreply, assign(socket, :form, to_form(changeset))}
+    {:noreply, assign(socket, :form, to_form(changeset, action: :validate))}
   end
 
   def handle_event("save", %{"sentry" => sentry_params}, socket) do
@@ -41,7 +38,7 @@ defmodule CatOnDutyWeb.SentryLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, dgettext("flash", "Sentry changed"))
-         |> push_navigate(to: socket.assigns.return_to)}
+         |> push_patch(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :form, to_form(changeset))}
@@ -62,14 +59,18 @@ defmodule CatOnDutyWeb.SentryLive.FormComponent do
           {:noreply, Socket.t()}
   defp handle_sentry_creation(sentry_params, socket) do
     case Employees.create_sentry(sentry_params) do
-      {:ok, _sentry} ->
+      {:ok, sentry} ->
+        notify_parent({:saved, sentry})
+
         {:noreply,
          socket
          |> put_flash(:info, dgettext("flash", "Sentry added"))
-         |> push_navigate(to: socket.assigns.return_to)}
+         |> push_patch(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
+
+  defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 end

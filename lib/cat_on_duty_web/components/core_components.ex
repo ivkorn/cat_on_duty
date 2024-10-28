@@ -15,10 +15,78 @@ defmodule CatOnDutyWeb.CoreComponents do
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
+  use Gettext, backend: CatOnDutyWeb.Gettext
 
   alias Phoenix.HTML.Form
   alias Phoenix.HTML.FormField
   alias Phoenix.LiveView.JS
+
+  @doc ~S"""
+  Renders a table with generic styling.
+
+  ## Examples
+
+      <.table id="users" rows={@users}>
+        <:col :let={user} label="id"><%= user.id %></:col>
+        <:col :let={user} label="username"><%= user.username %></:col>
+      </.table>
+  """
+  attr :id, :string, required: true
+  attr :class, :string, default: nil
+  attr :rows, :list, required: true
+  attr :row_id, :any, default: nil, doc: "the function for generating the row id"
+
+  attr :row_item, :any,
+    default: &Function.identity/1,
+    doc: "the function for mapping each row before calling the :col and :action slots"
+
+  slot :col, required: true do
+    attr :label, :string
+  end
+
+  slot :action, doc: "the slot for showing user actions in the last table column"
+
+  def table(assigns) do
+    assigns =
+      with %{rows: %Phoenix.LiveView.LiveStream{}} <- assigns do
+        assign(assigns, row_id: assigns.row_id || fn {id, _item} -> id end)
+      end
+
+    ~H"""
+    <div class={[@class, "table-responsive"]}>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th :for={col <- @col} scope="col"><%= col[:label] %></th>
+            <th :if={@action != []} scope="col"><%= dgettext("form", "Actions") %></th>
+          </tr>
+        </thead>
+        <tbody id={@id} phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}>
+          <tr :for={row <- @rows} id={@row_id && @row_id.(row)}>
+            <%= for {col, i} <- Enum.with_index(@col) do %>
+              <%= if i == 0 do %>
+                <th scope="row">
+                  <%= render_slot(col, @row_item.(row)) %>
+                </th>
+              <% else %>
+                <td>
+                  <%= render_slot(col, @row_item.(row)) %>
+                </td>
+              <% end %>
+            <% end %>
+            <td :if={@action != []}>
+              <div class="btn-group" role="group">
+                <%= for action <- @action do %>
+                  <%= render_slot(action, @row_item.(row)) %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    """
+  end
 
   @doc """
   Renders a modal.

@@ -11,56 +11,40 @@
   />
 <% end %>
 
-<.form for={@search} phx-submit="search" phx-change="search" id="search-form">
+<.form for={@search} phx-change="search" id="search-form">
   <.input
-    field={@search[:value]}
-    type="text"
-    autofocus={true}
+    field={@search[:search]}
+    autofocus="true"
     phx-debounce="300"
+    type="search"
     placeholder={dgettext("form", "Search by name or telegram username")}
   />
 </.form>
 
-<%= if @sentries != [] do %>
-  <table id="sentries" class="table table-hover mt-5">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col"><%= dgettext("sentry", "Name") %></th>
-      <th scope="col"><%= dgettext("sentry", "Telegram username") %></th>
-      <th scope="col"><%= dgettext("sentry", "Team") %></th>
-      <th scope="col"><%= dgettext("sentry", "On vacation?") %></th>
-      <th scope="col"></th>
-    </tr>
-    <%= for sentry <- @sentries do %>
-      <tr id={"sentry-#{sentry.id}"}>
-        <th scope="row"><%= sentry.id %></th>
-        <td><%= sentry.name %></td>
-        <td><%= sentry.tg_username %></td>
-        <%= if sentry.team != nil do %>
-          <td>
-            <.link navigate={~p"/teams/#{sentry.team.id}"} class="phx-logo">
-              <%= sentry.team.name %>
-            </.link>
-          </td>
-        <% else %>
-          <td><%= dgettext("form", "Not selected") %></td>
-        <% end %>
-        <td>
-          <%= if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No") %>
-        </td>
-        <td>
-          <.link
-            navigate={~p"/sentries/#{sentry.id}"}
-            role="button"
-            class="btn btn-secondary btn-sm"
-          >
-            <%= dgettext("form", "Show") %>
-          </.link>
-        </td>
-      </tr>
+<.table id="sentries" rows={@streams.sentries} class="mt-5">
+  <:col :let={{_id, sentry}} label="#"><%= sentry.id %></:col>
+  <:col :let={{_id, sentry}} label={dgettext("sentry", "Name")}><%= sentry.name %></:col>
+  <:col :let={{_id, sentry}} label={dgettext("sentry", "Telegram username")}>
+    <%= sentry.tg_username %>
+  </:col>
+  <:col :let={{_id, sentry}} label={dgettext("sentry", "Team")}>
+    <%= if sentry.team != nil do %>
+      <.link navigate={~p"/teams/#{sentry.team.id}"}>
+        <%= sentry.team.name %>
+      </.link>
+    <% else %>
+      <%= dgettext("form", "Not selected") %>
     <% end %>
-  </table>
-<% end %>
+  </:col>
+  <:col :let={{_id, sentry}} label={dgettext("sentry", "On vacation?")}>
+    <%= if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No") %>
+  </:col>
+  <:action :let={{_id, sentry}}>
+    <.link patch={~p"/sentries/#{sentry.id}"} role="button" class="btn btn-secondary btn-sm">
+      <%= dgettext("form", "Show") %>
+    </.link>
+  </:action>
+</.table>
 
 <.link patch={~p"/sentries/new"} role="button" class="btn btn-primary">
   <%= dgettext("form", "New sentry") %>

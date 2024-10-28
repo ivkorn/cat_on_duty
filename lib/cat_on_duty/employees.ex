@@ -12,9 +12,7 @@ defmodule CatOnDuty.Employees do
   # Socket
 
   @spec subscribe :: :ok | {:error, {:already_registered, pid}}
-  def subscribe do
-    Phoenix.PubSub.subscribe(CatOnDuty.PubSub, @topic)
-  end
+  def subscribe, do: Phoenix.PubSub.subscribe(CatOnDuty.PubSub, @topic)
 
   @spec broadcast_change({:ok, Sentry.t() | Team.t()} | {:error, Ecto.Changeset.t()}, [atom, ...]) ::
           {:ok, Sentry.t() | Team.t()} | {:error, Ecto.Changeset.t()}
@@ -66,6 +64,10 @@ defmodule CatOnDuty.Employees do
     %Team{}
     |> Team.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, schema} -> {:ok, Repo.preload(schema, :today_sentry)}
+      error -> error
+    end
     |> broadcast_change([:team, :created])
   end
 
@@ -148,6 +150,10 @@ defmodule CatOnDuty.Employees do
     %Sentry{}
     |> Sentry.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, schema} -> {:ok, Repo.preload(schema, :team)}
+      error -> error
+    end
     |> broadcast_change([:sentry, :created])
   end
 

@@ -8,7 +8,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
-    :ok = Employees.subscribe()
+    if connected?(socket), do: Employees.subscribe()
 
     {:ok, local_fetch(socket, id)}
   end

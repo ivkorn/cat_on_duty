@@ -15,7 +15,7 @@ defmodule CatOnDutyWeb.TeamLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:form, to_form(changeset))}
+     |> assign_new(:form, fn -> to_form(changeset) end)}
   end
 
   @impl true
@@ -38,7 +38,7 @@ defmodule CatOnDutyWeb.TeamLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, dgettext("flash", "Team changed"))
-         |> push_navigate(to: socket.assigns.return_to)}
+         |> push_patch(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :form, to_form(changeset))}
@@ -47,14 +47,18 @@ defmodule CatOnDutyWeb.TeamLive.FormComponent do
 
   def save_team(socket, :new, team_params) do
     case Employees.create_team(team_params) do
-      {:ok, _team} ->
+      {:ok, team} ->
+        notify_parent({:saved, team})
+
         {:noreply,
          socket
          |> put_flash(:info, dgettext("flash", "Team added"))
-         |> push_navigate(to: socket.assigns.return_to)}
+         |> push_patch(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
+
+  defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 end
