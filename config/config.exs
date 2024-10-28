@@ -25,7 +25,7 @@ config :cat_on_duty, Oban,
   plugins: [
     {Oban.Plugins.Cron,
      crontab: [
-       {"0 7 * * *", CatOnDuty.Workers.RotateAllSentries}
+       {"0 6 * * *", CatOnDuty.Workers.RotateAllSentries}
      ]}
   ]
 
