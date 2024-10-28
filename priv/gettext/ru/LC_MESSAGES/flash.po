@@ -11,12 +11,12 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100 != 11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:43
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:40
 #, elixir-autogen, elixir-format
 msgid "Sentry changed"
 msgstr "Дежурный изменен"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:68
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:67
 #, elixir-autogen, elixir-format
 msgid "Sentry added"
 msgstr "Дежурный добавлен"
@@ -27,7 +27,7 @@ msgstr "Дежурный добавлен"
 msgid "Sentry deleted"
 msgstr "Дежурный удален"
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:53
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:55
 #, elixir-autogen, elixir-format
 msgid "Team added"
 msgstr "Команда добавлена"

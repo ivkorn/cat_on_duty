@@ -11,12 +11,12 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:43
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:40
 #, elixir-autogen, elixir-format
 msgid "Sentry changed"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:68
+#: lib/cat_on_duty_web/live/sentry_live/form_component.ex:67
 #, elixir-autogen, elixir-format
 msgid "Sentry added"
 msgstr ""
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Sentry deleted"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/form_component.ex:53
+#: lib/cat_on_duty_web/live/team_live/form_component.ex:55
 #, elixir-autogen, elixir-format
 msgid "Team added"
 msgstr ""

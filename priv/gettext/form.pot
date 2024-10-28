@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 
 #: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:26
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:49
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:40
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:40
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:78
 #, elixir-autogen, elixir-format
@@ -19,7 +19,7 @@ msgid "No"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:26
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:49
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:40
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:40
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:78
 #, elixir-autogen, elixir-format
@@ -32,15 +32,15 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:57
-#: lib/cat_on_duty_web/live/team_live/index.html.heex:46
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:44
+#: lib/cat_on_duty_web/live/team_live/index.html.heex:38
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:82
 #, elixir-autogen, elixir-format
 msgid "Show"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/index.ex:48
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:66
+#: lib/cat_on_duty_web/live/sentry_live/index.ex:60
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:50
 #: lib/cat_on_duty_web/live/team_live/show.ex:102
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:92
 #, elixir-autogen, elixir-format
@@ -66,13 +66,13 @@ msgstr ""
 msgid "Are you shure?"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:49
-#: lib/cat_on_duty_web/live/team_live/index.html.heex:55
+#: lib/cat_on_duty_web/live/team_live/index.ex:60
+#: lib/cat_on_duty_web/live/team_live/index.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "New team"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:45
+#: lib/cat_on_duty_web/live/team_live/index.ex:56
 #, elixir-autogen, elixir-format
 msgid "Teams"
 msgstr ""
@@ -93,12 +93,12 @@ msgstr ""
 msgid "Search by name or telegram username"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.html.heex:19
+#: lib/cat_on_duty_web/live/team_live/index.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Search by name"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.html.heex:41
+#: lib/cat_on_duty_web/live/team_live/index.html.heex:33
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Nobody, we are in danger!"
@@ -110,7 +110,7 @@ msgid "Rotate today sentry"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:18
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:46
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:36
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Not selected"
@@ -120,4 +120,9 @@ msgstr ""
 #: lib/cat_on_duty_web/live/team_live/form_component.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Save"
+msgstr ""
+
+#: lib/cat_on_duty_web/components/core_components.ex:61
+#, elixir-autogen, elixir-format
+msgid "Actions"
 msgstr ""

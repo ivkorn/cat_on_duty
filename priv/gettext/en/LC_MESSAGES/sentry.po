@@ -12,14 +12,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:10
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:28
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:26
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:11
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:29
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:27
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:16
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:64
 #, elixir-autogen, elixir-format
@@ -34,7 +34,7 @@ msgid "Team"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/sentry_live/form_component.html.heex:23
-#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:31
+#: lib/cat_on_duty_web/live/sentry_live/index.html.heex:39
 #: lib/cat_on_duty_web/live/sentry_live/show.html.heex:38
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:66
 #, elixir-autogen, elixir-format
@@ -42,7 +42,7 @@ msgid "On vacation?"
 msgstr ""
 
 #: lib/cat_on_duty_web/components/layouts/root.html.heex:24
-#: lib/cat_on_duty_web/live/sentry_live/index.ex:52
+#: lib/cat_on_duty_web/live/sentry_live/index.ex:64
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:1
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:59
 #, elixir-autogen, elixir-format
