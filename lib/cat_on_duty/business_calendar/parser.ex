@@ -17,7 +17,7 @@ defmodule CatOnDuty.BusinessCalendar.Parser do
   @working_type "working"
 
   def parse_from_json(json_string) do
-    json_string |> Jason.decode!() |> Map.new(fn {key, value} -> {Date.from_iso8601!(key), value} end)
+    json_string |> JSON.decode!() |> Map.new(fn {key, value} -> {Date.from_iso8601!(key), value} end)
   end
 
   def parse_from_xml(xml_document) do
