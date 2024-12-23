@@ -1,4 +1,4 @@
-<h1><%= @team.name %></h1>
+<h1>{@team.name}</h1>
 
 <%= if @live_action in ~w[edit]a do %>
   <.live_component
@@ -25,20 +25,20 @@
 
 <table id="team" class="table table-hover mt-5">
   <tr>
-    <th scope="col"><%= dgettext("team", "Telegram chat ID") %></th>
-    <td><%= @team.tg_chat_id %></td>
+    <th scope="col">{dgettext("team", "Telegram chat ID")}</th>
+    <td>{@team.tg_chat_id}</td>
     <td></td>
   </tr>
   <tr>
-    <th scope="row"><%= dgettext("team", "Today on duty") %></th>
+    <th scope="row">{dgettext("team", "Today on duty")}</th>
     <%= if @team.today_sentry != nil do %>
       <td>
         <.link patch={~p"/sentries/#{@team.today_sentry.id}"}>
-          <%= @team.today_sentry.name %>
+          {@team.today_sentry.name}
         </.link>
       </td>
     <% else %>
-      <td><%= dgettext("form", "Nobody, we are in danger!") %></td>
+      <td>{dgettext("form", "Nobody, we are in danger!")}</td>
     <% end %>
     <td>
       <.link
@@ -49,37 +49,37 @@
         role="button"
         class="btn btn-success"
       >
-        <%= dgettext("form", "Rotate today sentry") %>
+        {dgettext("form", "Rotate today sentry")}
       </.link>
     </td>
   </tr>
 </table>
 
 <%= if @team.sentries != [] do %>
-  <h2><%= dgettext("sentry", "Sentries") %></h2>
+  <h2>{dgettext("sentry", "Sentries")}</h2>
 
   <table id="team_sentries" class="table table-hover mt-5">
     <tr>
-      <th scope="col"><%= dgettext("sentry", "Name") %></th>
-      <th scope="col"><%= dgettext("sentry", "Telegram username") %></th>
-      <th scope="col"><%= dgettext("sentry", "Last duty") %></th>
-      <th scope="col"><%= dgettext("sentry", "On vacation?") %></th>
+      <th scope="col">{dgettext("sentry", "Name")}</th>
+      <th scope="col">{dgettext("sentry", "Telegram username")}</th>
+      <th scope="col">{dgettext("sentry", "Last duty")}</th>
+      <th scope="col">{dgettext("sentry", "On vacation?")}</th>
       <th scope="col"></th>
     </tr>
     <%= for sentry <- @team.sentries do %>
       <tr id={"sentry-#{sentry.id}"}>
-        <td><%= sentry.name %></td>
-        <td><%= sentry.tg_username %></td>
+        <td>{sentry.name}</td>
+        <td>{sentry.tg_username}</td>
         <td>
-          <%= if sentry.last_duty_at != nil,
-            do: Calendar.strftime(sentry.last_duty_at, dgettext("formats", "date")) %>
+          {if sentry.last_duty_at != nil,
+            do: Calendar.strftime(sentry.last_duty_at, dgettext("formats", "date"))}
         </td>
         <td>
-          <%= if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No") %>
+          {if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No")}
         </td>
         <td>
           <.link navigate={~p"/sentries/#{sentry}"} role="button" class="btn btn-secondary">
-            <%= dgettext("form", "Show") %>
+            {dgettext("form", "Show")}
           </.link>
         </td>
       </tr>
@@ -89,10 +89,10 @@
 
 <div class="btn-group" role="group">
   <.link patch={~p"/teams/#{@team.id}/new_sentry"} role="button" class="btn btn-primary">
-    <%= dgettext("form", "New sentry") %>
+    {dgettext("form", "New sentry")}
   </.link>
   <.link patch={~p"/teams/#{@team.id}/edit"} role="button" class="btn btn-info">
-    <%= dgettext("form", "Edit team") %>
+    {dgettext("form", "Edit team")}
   </.link>
   <.link
     href="#"
@@ -102,6 +102,6 @@
     role="button"
     class="btn btn-danger"
   >
-    <%= dgettext("form", "Delete team") %>
+    {dgettext("form", "Delete team")}
   </.link>
 </div>

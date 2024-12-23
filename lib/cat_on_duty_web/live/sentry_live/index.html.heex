@@ -1,4 +1,4 @@
-<h1><%= dgettext("sentry", "Sentries") %></h1>
+<h1>{dgettext("sentry", "Sentries")}</h1>
 
 <%= if @live_action in ~w[new_sentry]a do %>
   <.live_component
@@ -22,30 +22,30 @@
 </.form>
 
 <.table id="sentries" rows={@streams.sentries} class="mt-5">
-  <:col :let={{_id, sentry}} label="#"><%= sentry.id %></:col>
-  <:col :let={{_id, sentry}} label={dgettext("sentry", "Name")}><%= sentry.name %></:col>
+  <:col :let={{_id, sentry}} label="#">{sentry.id}</:col>
+  <:col :let={{_id, sentry}} label={dgettext("sentry", "Name")}>{sentry.name}</:col>
   <:col :let={{_id, sentry}} label={dgettext("sentry", "Telegram username")}>
-    <%= sentry.tg_username %>
+    {sentry.tg_username}
   </:col>
   <:col :let={{_id, sentry}} label={dgettext("sentry", "Team")}>
     <%= if sentry.team != nil do %>
       <.link navigate={~p"/teams/#{sentry.team.id}"}>
-        <%= sentry.team.name %>
+        {sentry.team.name}
       </.link>
     <% else %>
-      <%= dgettext("form", "Not selected") %>
+      {dgettext("form", "Not selected")}
     <% end %>
   </:col>
   <:col :let={{_id, sentry}} label={dgettext("sentry", "On vacation?")}>
-    <%= if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No") %>
+    {if sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No")}
   </:col>
   <:action :let={{_id, sentry}}>
     <.link patch={~p"/sentries/#{sentry.id}"} role="button" class="btn btn-secondary btn-sm">
-      <%= dgettext("form", "Show") %>
+      {dgettext("form", "Show")}
     </.link>
   </:action>
 </.table>
 
 <.link patch={~p"/sentries/new"} role="button" class="btn btn-primary">
-  <%= dgettext("form", "New sentry") %>
+  {dgettext("form", "New sentry")}
 </.link>

@@ -57,8 +57,8 @@ defmodule CatOnDutyWeb.CoreComponents do
       <table class="table table-hover">
         <thead>
           <tr>
-            <th :for={col <- @col} scope="col"><%= col[:label] %></th>
-            <th :if={@action != []} scope="col"><%= dgettext("form", "Actions") %></th>
+            <th :for={col <- @col} scope="col">{col[:label]}</th>
+            <th :if={@action != []} scope="col">{dgettext("form", "Actions")}</th>
           </tr>
         </thead>
         <tbody id={@id} phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}>
@@ -66,18 +66,18 @@ defmodule CatOnDutyWeb.CoreComponents do
             <%= for {col, i} <- Enum.with_index(@col) do %>
               <%= if i == 0 do %>
                 <th scope="row">
-                  <%= render_slot(col, @row_item.(row)) %>
+                  {render_slot(col, @row_item.(row))}
                 </th>
               <% else %>
                 <td>
-                  <%= render_slot(col, @row_item.(row)) %>
+                  {render_slot(col, @row_item.(row))}
                 </td>
               <% end %>
             <% end %>
             <td :if={@action != []}>
               <div class="btn-group" role="group">
                 <%= for action <- @action do %>
-                  <%= render_slot(action, @row_item.(row)) %>
+                  {render_slot(action, @row_item.(row))}
                 <% end %>
               </div>
             </td>
@@ -126,11 +126,11 @@ defmodule CatOnDutyWeb.CoreComponents do
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 :if={@title} class="modal-title fs-5" id={"modal-label-#{@id}"}><%= @title %></h1>
+            <h1 :if={@title} class="modal-title fs-5" id={"modal-label-#{@id}"}>{@title}</h1>
             <.link patch={@return_to} role="button" data-bs-dismiss="modal" class="btn-close"></.link>
           </div>
           <div class="modal-body">
-            <%= render_slot(@inner_block) %>
+            {render_slot(@inner_block)}
           </div>
         </div>
       </div>
@@ -166,9 +166,9 @@ defmodule CatOnDutyWeb.CoreComponents do
       {@rest}
     >
       <h3 :if={@title} class="alert-heading">
-        <%= @title %>
+        {@title}
       </h3>
-      <%= flash_message %>
+      {flash_message}
       <button
         phx-click={JS.push("lv:clear-flash", value: %{key: @kind})}
         type="button"
@@ -208,12 +208,12 @@ defmodule CatOnDutyWeb.CoreComponents do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
       <div>
-        <%= render_slot(@inner_block, f) %>
+        {render_slot(@inner_block, f)}
         <div
           :for={action <- @actions}
           class="mt-2 d-flexflex align-items-center justify-content-between gap-3"
         >
-          <%= render_slot(action, f) %>
+          {render_slot(action, f)}
         </div>
       </div>
     </.form>
@@ -297,9 +297,9 @@ defmodule CatOnDutyWeb.CoreComponents do
           class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
           {@rest}
         />
-        <%= @label %>
+        {@label}
       </label>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -307,12 +307,12 @@ defmodule CatOnDutyWeb.CoreComponents do
   def input(%{type: "select"} = assigns) do
     ~H"""
     <div phx-feedback-for={@name} class="mb-3">
-      <.label :if={@label} for={@id}><%= @label %></.label>
+      <.label :if={@label} for={@id}>{@label}</.label>
       <select id={@id} name={@name} class="form-select" multiple={@multiple} {@rest}>
-        <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Form.options_for_select(@options, @value) %>
+        <option :if={@prompt} value="">{@prompt}</option>
+        {Form.options_for_select(@options, @value)}
       </select>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -320,7 +320,7 @@ defmodule CatOnDutyWeb.CoreComponents do
   def input(%{type: "textarea"} = assigns) do
     ~H"""
     <div>
-      <.label for={@id}><%= @label %></.label>
+      <.label for={@id}>{@label}</.label>
       <textarea
         id={@id}
         name={@name}
@@ -331,7 +331,7 @@ defmodule CatOnDutyWeb.CoreComponents do
         ]}
         {@rest}
       ><%= Form.normalize_value("textarea", @value) %></textarea>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -340,7 +340,7 @@ defmodule CatOnDutyWeb.CoreComponents do
   def input(assigns) do
     ~H"""
     <div phx-feedback-for={@name} class="mb-3">
-      <.label :if={@label} for={@id}><%= @label %></.label>
+      <.label :if={@label} for={@id}>{@label}</.label>
       <input
         type={@type}
         name={@name}
@@ -352,7 +352,7 @@ defmodule CatOnDutyWeb.CoreComponents do
         ]}
         {@rest}
       />
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -366,7 +366,7 @@ defmodule CatOnDutyWeb.CoreComponents do
   def label(assigns) do
     ~H"""
     <label for={@for} class="form-label">
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </label>
     """
   end
@@ -379,7 +379,7 @@ defmodule CatOnDutyWeb.CoreComponents do
   def error(assigns) do
     ~H"""
     <p class="invalid-feedback">
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end

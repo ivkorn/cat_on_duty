@@ -1,4 +1,4 @@
-<h1><%= dgettext("team", "Teams") %></h1>
+<h1>{dgettext("team", "Teams")}</h1>
 
 <%= if @live_action in [:new] do %>
   <.live_component
@@ -22,24 +22,24 @@
 </.form>
 
 <.table id="teams" rows={@streams.teams} class="mt-5">
-  <:col :let={{_id, team}} label="#"><%= team.id %></:col>
-  <:col :let={{_id, team}} label={dgettext("team", "Name")}><%= team.name %></:col>
+  <:col :let={{_id, team}} label="#">{team.id}</:col>
+  <:col :let={{_id, team}} label={dgettext("team", "Name")}>{team.name}</:col>
   <:col :let={{_id, team}} label={dgettext("team", "Today on duty")}>
     <%= if team.today_sentry != nil do %>
       <.link patch={~p"/sentries/#{team.today_sentry.id}"}>
-        <%= team.today_sentry.name %>
+        {team.today_sentry.name}
       </.link>
     <% else %>
-      <%= dgettext("form", "Nobody, we are in danger!") %>
+      {dgettext("form", "Nobody, we are in danger!")}
     <% end %>
   </:col>
   <:action :let={{_id, team}}>
     <.link patch={~p"/teams/#{team.id}"} role="button" class="btn btn-secondary btn-sm">
-      <%= dgettext("form", "Show") %>
+      {dgettext("form", "Show")}
     </.link>
   </:action>
 </.table>
 
 <.link patch={~p"/teams/new"} role="button" class="btn btn-primary">
-  <%= dgettext("form", "New team") %>
+  {dgettext("form", "New team")}
 </.link>

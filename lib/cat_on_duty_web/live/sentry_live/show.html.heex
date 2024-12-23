@@ -1,4 +1,4 @@
-<h1><%= @sentry.name %></h1>
+<h1>{@sentry.name}</h1>
 
 <%= if @live_action in ~w[edit_sentry]a do %>
   <.live_component
@@ -13,38 +13,38 @@
 
 <table id="sentry" class="table table-hover mt-5">
   <tr>
-    <th><%= dgettext("sentry", "Telegram username") %></th>
-    <td><%= @sentry.tg_username %></td>
+    <th>{dgettext("sentry", "Telegram username")}</th>
+    <td>{@sentry.tg_username}</td>
   </tr>
   <tr>
-    <th><%= dgettext("sentry", "Team") %></th>
+    <th>{dgettext("sentry", "Team")}</th>
     <%= if @sentry.team != nil do %>
       <td>
         <.link navigate={~p"/teams/#{@sentry.team.id}"}>
-          <%= @sentry.team.name %>
+          {@sentry.team.name}
         </.link>
       </td>
     <% else %>
-      <td><%= dgettext("form", "Not selected") %></td>
+      <td>{dgettext("form", "Not selected")}</td>
     <% end %>
   </tr>
   <%= if @sentry.last_duty_at != nil do %>
     <tr>
-      <th><%= dgettext("sentry", "Last duty") %></th>
-      <td><%= Calendar.strftime(@sentry.last_duty_at, dgettext("formats", "date")) %></td>
+      <th>{dgettext("sentry", "Last duty")}</th>
+      <td>{Calendar.strftime(@sentry.last_duty_at, dgettext("formats", "date"))}</td>
     </tr>
   <% end %>
   <tr>
-    <th><%= dgettext("sentry", "On vacation?") %></th>
+    <th>{dgettext("sentry", "On vacation?")}</th>
     <td>
-      <%= if @sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No") %>
+      {if @sentry.on_vacation?, do: dgettext("form", "Yes"), else: dgettext("form", "No")}
     </td>
   </tr>
 </table>
 
 <div class="btn-group" role="group">
   <.link patch={~p"/sentries/#{@sentry.id}/edit"} role="button" class="btn btn-info">
-    <%= dgettext("form", "Edit sentry") %>
+    {dgettext("form", "Edit sentry")}
   </.link>
   <.link
     href="#"
@@ -54,6 +54,6 @@
     role="button"
     class="btn btn-danger"
   >
-    <%= dgettext("form", "Delete sentry") %>
+    {dgettext("form", "Delete sentry")}
   </.link>
 </div>

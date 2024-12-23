@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title suffix=" · Phoenix Framework">
-      <%= assigns[:page_title] || "CatOnDuty" %>
+      {assigns[:page_title] || "CatOnDuty"}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
@@ -18,14 +18,14 @@
       </.link>
       <nav class="nav flex-column align-items-end">
         <.link navigate={~p"/teams"} class="nav-link">
-          <%= dgettext("team", "Teams") %>
+          {dgettext("team", "Teams")}
         </.link>
         <.link navigate={~p"/sentries"} class="nav-link">
-          <%= dgettext("sentry", "Sentries") %>
+          {dgettext("sentry", "Sentries")}
         </.link>
       </nav>
     </header>
-    <%= @inner_content %>
+    {@inner_content}
     <footer></footer>
   </body>
 </html>
