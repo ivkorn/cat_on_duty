@@ -1,6 +1,6 @@
 {
   "name": "cat_on_duty",
-  "version": "0.0.1",
+  "private": "true",
   "type": "module",
   "scripts": {
     "build": "node build.js",
@@ -29,5 +29,7 @@
     "sass": "^1.83.0",
     "topbar": "^3.0.0"
   },
-  "browserslist": "> 0.25%, not dead"
+  "browserslist": [
+    "defaults"
+  ]
 }
