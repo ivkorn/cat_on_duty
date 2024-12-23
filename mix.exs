@@ -44,6 +44,7 @@ defmodule CatOnDuty.MixProject do
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.1"},
       {:gettext, "~> 0.26"},
+      {:jason, "~> 1.4"},
       {:bandit, "~> 1.5"},
       {:oban, "~> 2.18"},
       {:telegex, "~> 1.8"},

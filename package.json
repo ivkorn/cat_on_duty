@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "node esbuild/build.js",
-    "build:watch": "node esbuild/watch.js"
+    "build": "node build.js",
+    "build:watch": "npm run build -- --watch"
   },
   "license": "MIT",
   "devDependencies": {
@@ -17,6 +17,7 @@
     "stylelint-config-standard-scss": "^14.0.0"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "esbuild": "^0.24.2",
     "esbuild-sass-plugin": "^3.3.1",

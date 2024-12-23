@@ -7,6 +7,9 @@
 # General application configuration
 import Config
 
+# Configure your database
+config :cat_on_duty, CatOnDuty.Repo, default_transaction_mode: :immediate
+
 # Configures the endpoint
 config :cat_on_duty, CatOnDutyWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,

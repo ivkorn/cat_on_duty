@@ -34,7 +34,7 @@ defmodule Mix.Tasks.Gen.Calendar do
   end
 
   defp save(calendar, year, dir_path) do
-    json = JSON.encode!(calendar)
+    json = Jason.encode!(calendar)
 
     [dir_path, "#{year}.json"]
     |> Path.join()

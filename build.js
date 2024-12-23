@@ -1,0 +1,58 @@
+/* eslint-disable no-console */
+
+import path from 'node:path';
+import * as esbuild from 'esbuild';
+import { sassPlugin } from 'esbuild-sass-plugin';
+import postcss from 'postcss';
+import postcssPresetEnv from 'postcss-preset-env';
+import autoprefixer from 'autoprefixer';
+
+const env = process.env.NODE_ENV ?? 'dev';
+
+const isWatch = process.argv.slice(2).includes('--watch');
+const isProd = env === 'prod';
+
+const minify = isProd;
+const entryPoints = [path.resolve(import.meta.dirname, 'assets', 'js', 'app.js')];
+const outfile = path.resolve(import.meta.dirname, 'priv', 'static', 'assets', 'app.js');
+const targets = isProd ? ['es6'] : ['esnext'];
+const sourceMap = !isProd;
+
+let transform;
+if (isProd) {
+  transform = {
+    async transform(source) {
+      const postcssPlugins = [autoprefixer, postcssPresetEnv()];
+      const { css } = await postcss(postcssPlugins).process(source, { from: undefined });
+      return css;
+    },
+  };
+} else {
+  transform = {};
+}
+
+const config = {
+  minify,
+  entryPoints,
+  outfile,
+  target: targets,
+  bundle: true,
+  sourcemap: sourceMap,
+  plugins: [sassPlugin({
+    filter: /\.scss$/,
+    quietDeps: true,
+    sourceMap,
+    ...transform,
+  })],
+};
+
+if (isWatch) {
+  esbuild.context(config)
+    .then((ctx) => ctx.watch())
+    .then(() => { if (isWatch) console.log('esbuild is watching...'); })
+    .catch((() => process.exit(1)));
+} else {
+  esbuild.build(config)
+    .then(() => console.log('build finished'))
+    .catch(() => process.exit(1));
+}
