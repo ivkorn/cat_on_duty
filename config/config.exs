@@ -39,6 +39,11 @@ config :cat_on_duty, :session_signing_salt, "session_signing_salt"
 config :cat_on_duty,
   ecto_repos: [CatOnDuty.Repo]
 
+config :error_tracker,
+  repo: CatOnDuty.Repo,
+  otp_app: :cat_on_duty,
+  enabled: false
+
 config :gettext, :default_locale, "ru"
 
 # Configures Elixir's Logger

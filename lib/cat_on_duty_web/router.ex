@@ -1,5 +1,8 @@
 defmodule CatOnDutyWeb.Router do
   use CatOnDutyWeb, :router
+  use ErrorTracker.Web, :router
+
+  import Phoenix.LiveDashboard.Router
 
   alias CatOnDutyWeb.Plugs
 
@@ -37,6 +40,13 @@ defmodule CatOnDutyWeb.Router do
     live "/sentries/:id/edit", SentryLive.Show, :edit_sentry
   end
 
+  scope "/monitoring" do
+    pipe_through :browser
+
+    live_dashboard "/dashboard", metrics: DomclickDutyWeb.Telemetry, ecto_repos: [CatOnDuty.Repo]
+    error_tracker_dashboard("/errors")
+  end
+
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:domclick_duty, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
@@ -44,13 +54,7 @@ defmodule CatOnDutyWeb.Router do
     # If your application does not have an admins-only section yet,
     # you can use Plug.BasicAuth to set up some basic authentication
     # as long as you are also using SSL (which you should anyway).
-    import Phoenix.LiveDashboard.Router
 
-    scope "/dev" do
-      pipe_through :browser
-
-      live_dashboard "/dashboard", metrics: DomclickDutyWeb.Telemetry
-      # forward "/mailbox", Plug.Swoosh.MailboxPreview
-    end
+    # forward "/mailbox", Plug.Swoosh.MailboxPreview
   end
 end

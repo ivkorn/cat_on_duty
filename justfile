@@ -26,7 +26,7 @@ dialyzer:
     mix dialyzer --quiet-with-result
 
 lint-backend:
-    @just check-formatted
+    @just check-formated
     @just credo
     @just dialyzer
 
@@ -51,8 +51,8 @@ audit-frontend:
     npm audit --audit-level low
 
 audit:
-    @just audit-backend
     @just audit-frontend
+    @just audit-backend
 
 test paths="":
     MIX_ENV=test mix do ecto.drop --quiet, ecto.create --quiet, ecto.migrate --quiet, test {{ paths }}
@@ -60,7 +60,7 @@ test paths="":
 full-check:
     @just lint
     @just audit
-    @just tests
+    @just test
 
 gen-erd:
     #!/usr/bin/env bash

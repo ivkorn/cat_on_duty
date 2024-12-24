@@ -25,4 +25,4 @@ config :exvcr,
   vcr_cassette_library_dir: "test/fixtures/vcr_cassettes"
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
