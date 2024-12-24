@@ -1,3 +1,0 @@
-export LOGIN=login
-export PASSWORD=password
-export TG_BOT_TOKEN=tg_bot_token

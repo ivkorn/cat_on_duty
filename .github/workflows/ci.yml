@@ -17,14 +17,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .tool-versions
+      - uses: extractions/setup-just@v2
       - name: Setup
-        run: make setup-frontend
+        run: just setup-frontend
       - name: ESLint
-        run: make eslint
+        run: just eslint
       - name: Stylelint
-        run: make stylelint
+        run: just stylelint
       - name: Audit
-        run: make audit-frontend
+        run: just audit-frontend
   backend:
     runs-on: ubuntu-latest
     steps:
@@ -34,14 +35,15 @@ jobs:
           version-type: strict
           version-file: .tool-versions
           id: beam
+      - uses: extractions/setup-just@v2
       - name: Setup
-        run: make setup-backend
+        run: just setup-backend
       - name: Check formatted
-        run: make check-formated
+        run: just check-formated
       - name: Credo
-        run: make credo
+        run: just credo
       - name: Audit
-        run: make audit-backend
+        run: just audit-backend
       - name: Restore PLT cache
         uses: actions/cache/restore@v4
         id: plt_cache
@@ -51,7 +53,7 @@ jobs:
           path: priv/dialyzer
       - name: Create PLTs
         if: steps.plt_cache.outputs.cache-hit != 'true'
-        run: make plts-create
+        run: just plts-create
       - name: Save PLT cache
         uses: actions/cache/save@v4
         if: steps.plt_cache.outputs.cache-hit != 'true'
@@ -60,6 +62,6 @@ jobs:
           key: ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
           path: priv/dialyzer
       - name: Run dialyzer
-        run: make dialyzer-ci
+        run: just dialyzer-ci
       - name: Test
-        run: make tests
+        run: just test
