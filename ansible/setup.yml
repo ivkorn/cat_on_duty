@@ -55,10 +55,3 @@
         path: "{{ database_dir }}"
         mode: '666'
         state: directory
-    - name: Create database
-      ansible.builtin.file:
-        path: "{{ database_path }}"
-        mode: '777'
-        state: touch
-        modification_time: preserve
-        access_time: preserve

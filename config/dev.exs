@@ -1,9 +1,21 @@
 import Config
 
-# Configure your database
+# Configure your databases
+config :cat_on_duty, CatOnDuty.ErrorTrackerRepo,
+  database: Path.expand("../priv/db/error_tracker_dev.db", __DIR__),
+  pool_size: 3,
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true
+
+config :cat_on_duty, CatOnDuty.ObanRepo,
+  database: Path.expand("../priv/db/oban_dev.db", __DIR__),
+  pool_size: 3,
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true
+
 config :cat_on_duty, CatOnDuty.Repo,
-  database: Path.expand("../cat_on_duty_dev.db", __DIR__),
-  pool_size: 5,
+  database: Path.expand("../priv/db/cat_on_duty_dev.db", __DIR__),
+  pool_size: 3,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true
 

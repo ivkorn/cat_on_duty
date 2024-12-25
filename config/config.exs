@@ -7,8 +7,18 @@
 # General application configuration
 import Config
 
-# Configure your database
-config :cat_on_duty, CatOnDuty.Repo, default_transaction_mode: :immediate
+# Configure your databases
+config :cat_on_duty, CatOnDuty.ErrorTrackerRepo,
+  default_transaction_mode: :immediate,
+  priv: "priv/repos/error_tracker_repo"
+
+config :cat_on_duty, CatOnDuty.ObanRepo,
+  default_transaction_mode: :immediate,
+  priv: "priv/repos/oban_repo"
+
+config :cat_on_duty, CatOnDuty.Repo,
+  default_transaction_mode: :immediate,
+  priv: "priv/repos/repo"
 
 # Configures the endpoint
 config :cat_on_duty, CatOnDutyWeb.Endpoint,
@@ -21,7 +31,7 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
 
 config :cat_on_duty, Oban,
   engine: Oban.Engines.Lite,
-  repo: CatOnDuty.Repo,
+  repo: CatOnDuty.ObanRepo,
   queues: [
     rotation: 1
   ],
@@ -37,10 +47,14 @@ config :cat_on_duty, :session_encryption_salt, "session_encryption_salt"
 config :cat_on_duty, :session_signing_salt, "session_signing_salt"
 
 config :cat_on_duty,
-  ecto_repos: [CatOnDuty.Repo]
+  ecto_repos: [
+    CatOnDuty.Repo,
+    CatOnDuty.ErrorTrackerRepo,
+    CatOnDuty.ObanRepo
+  ]
 
 config :error_tracker,
-  repo: CatOnDuty.Repo,
+  repo: CatOnDuty.ErrorTrackerRepo,
   otp_app: :cat_on_duty,
   enabled: false
 

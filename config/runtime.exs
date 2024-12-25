@@ -25,7 +25,7 @@ if config_env() == :prod do
   host = System.get_env("PHX_HOST")
   port = String.to_integer(System.get_env("PORT") || "4000")
   database_path = System.fetch_env!("DATABASE_PATH")
-  db_pool_size = System.get_env("DB_POOL_SIZE", "5")
+  db_pool_size = System.get_env("DB_POOL_SIZE", "3")
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   username = System.fetch_env!("LOGIN")
@@ -35,10 +35,20 @@ if config_env() == :prod do
   live_view_signing_salt = System.fetch_env!("LIVE_VIEW_SIGNING_SALT")
   tg_bot_token = System.fetch_env!("TG_BOT_TOKEN")
 
-  config :cat_on_duty, CatOnDuty.Repo,
-    database: database_path,
+  config :cat_on_duty, CatOnDuty.ErrorTrackerRepo,
     pool_size: String.to_integer(db_pool_size),
-    busy_timeout: 5000
+    busy_timeout: 5000,
+    database: Path.join(database_path, "error_tracker.db")
+
+  config :cat_on_duty, CatOnDuty.ObanRepo,
+    pool_size: String.to_integer(db_pool_size),
+    busy_timeout: 5000,
+    database: Path.join(database_path, "oban.db")
+
+  config :cat_on_duty, CatOnDuty.Repo,
+    pool_size: String.to_integer(db_pool_size),
+    busy_timeout: 5000,
+    database: Path.join(database_path, "cat_on_duty.db")
 
   config :cat_on_duty, CatOnDutyWeb.Endpoint,
     url: [scheme: "https", host: host, port: 443],

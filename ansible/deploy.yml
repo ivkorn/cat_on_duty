@@ -28,7 +28,7 @@
           PHX_HOST: "{{ ansible_ssh_host }}"
           PORT: "{{ env_port }}"
           SECRET_KEY_BASE: "{{ env_secret_key_base }}"
-          DATABASE_PATH: "{{ env_database_path }}"
+          DATABASE_PATH: "{{ env_database_dir }}"
           LOGIN: "{{ env_login }}"
           PASSWORD: "{{ env_password }}"
           SESSION_ENCRYPTION_SALT: "{{ env_session_encryption_salt }}"

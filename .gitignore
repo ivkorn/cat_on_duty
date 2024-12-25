@@ -46,4 +46,4 @@ priv/dialyzer/*.hash
 
 node_modules/
 
-/*.db*
+*.db*

@@ -9,6 +9,8 @@ defmodule CatOnDuty.Application do
     children = [
       # Start the Ecto repository
       CatOnDuty.Repo,
+      CatOnDuty.ObanRepo,
+      CatOnDuty.ErrorTrackerRepo,
       {Ecto.Migrator, repos: Application.fetch_env!(:cat_on_duty, :ecto_repos), skip: skip_migrations?()},
       # Start the Telemetry supervisor
       CatOnDutyWeb.Telemetry,

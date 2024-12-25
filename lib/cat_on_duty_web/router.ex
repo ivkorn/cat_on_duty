@@ -43,7 +43,14 @@ defmodule CatOnDutyWeb.Router do
   scope "/monitoring" do
     pipe_through :browser
 
-    live_dashboard "/dashboard", metrics: CatOnDutyWeb.Telemetry, ecto_repos: [CatOnDuty.Repo]
+    live_dashboard "/dashboard",
+      metrics: CatOnDutyWeb.Telemetry,
+      ecto_repos: [
+        CatOnDuty.Repo,
+        CatOnDuty.ErrorTrackerRepo,
+        CatOnDuty.ObanRepo
+      ]
+
     error_tracker_dashboard("/errors")
   end
 
