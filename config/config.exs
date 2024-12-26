@@ -7,9 +7,6 @@
 # General application configuration
 import Config
 
-{_, os_type} = :os.type()
-arch = :system_architecture |> :erlang.system_info() |> List.to_string() |> String.split("-") |> List.first()
-
 # Configure your databases
 config :cat_on_duty, CatOnDuty.ErrorTrackerRepo,
   default_transaction_mode: :immediate,
@@ -60,8 +57,6 @@ config :error_tracker,
   repo: CatOnDuty.ErrorTrackerRepo,
   otp_app: :cat_on_duty,
   enabled: false
-
-config :exqlite, load_extensions: [Path.expand("../priv/sqlite/#{os_type}-#{arch}/text", __DIR__)]
 
 config :gettext, :default_locale, "ru"
 

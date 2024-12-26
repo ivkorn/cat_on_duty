@@ -37,7 +37,6 @@ defmodule CatOnDuty.MixProject do
       {:phoenix_ecto, "~> 4.6"},
       {:ecto_sql, "~> 3.12"},
       {:ecto_sqlite3, ">= 0.0.0"},
-      {:exqlite, "~> 0.27"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_view, "~> 1.0.1"},
       {:phoenix_live_dashboard, "~> 0.8"},
