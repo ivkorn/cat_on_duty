@@ -1,4 +1,4 @@
-- name: Setup server playbook
+- name: Deploy app playbook
   hosts: server
   tasks:
     - name: Fail if release_version is empty
