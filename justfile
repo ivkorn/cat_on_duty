@@ -68,8 +68,8 @@ gen-erd:
     mix ecto.gen.erd --output-path=$tmp_erd_path && \
     dot -Tsvg $tmp_erd_path -o docs/erd.svg
 
-routes route="":
-    mix phx.routes | grep "{{ route }}"
+routes routes="":
+    mix phx.routes | grep "{{ routes }}"
 
 serve:
     iex --dbg pry -S mix phx.server
@@ -77,8 +77,17 @@ serve:
 gettext:
     mix gettext.extract --merge
 
-seed:
-    mix run priv/repo/seeds.exs
+console local_node_name="debug@127.0.0.1":
+    #!/usr/bin/env bash
+    read_vars() {
+        ansible-vault decrypt $1 --vault-password-file .vault --output - 2> /dev/null || cat $1
+    }
+    host_vars_path="ansible/host_vars/server.yml"
+    hosts_path="ansible/hosts.yml"
+    cookie=$(read_vars $host_vars_path | grep "env_release_cookie" | awk -F ":" '{print $2}' | xargs)
+    release_name=$(read_vars $host_vars_path | grep "env_release_name" | awk -F ":" '{print $2}' | xargs)
+    node_name=$(read_vars $hosts_path | grep "ansible_host" | awk -F ":" '{print $2}' | xargs)
+    iex --name {{ local_node_name }} --cookie $cookie --remsh "$release_name@$node_name"
 
 encrypt:
     ansible-vault encrypt ansible/hosts.yml ansible/host_vars/server.yml --vault-password-file .vault
@@ -86,8 +95,5 @@ encrypt:
 decrypt:
     ansible-vault decrypt ansible/hosts.yml ansible/host_vars/server.yml --vault-password-file .vault
 
-server-setup:
-    ansible-playbook ansible/setup.yml -i ansible/hosts.yml --vault-password-file .vault
-
-server-deploy release_version:
+deploy release_version:
     ansible-playbook ansible/deploy.yml -i ansible/hosts.yml --vault-password-file .vault --extra-vars release_version={{ release_version }}

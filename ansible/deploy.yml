@@ -11,7 +11,7 @@
         image: "{{ docker_image_name }}:{{ release_version }}"
         restart_policy: always
         state: started
-        ports: "{{ docker_ports }}"
+        network_mode: host
         mounts:
           - source: "{{ database_dir }}"
             target: "{{ env_database_dir }}"
@@ -19,7 +19,6 @@
             read_only: false
             type: bind
         env:
-          ERL_EPMD_PORT: "{{ env_erl_epmd_port }}"
           ELIXIR_ERL_OPTIONS: "{{ env_erl_options }}"
           RELEASE_DISTRIBUTION: name
           RELEASE_NAME: "{{ env_release_name }}"
