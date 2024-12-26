@@ -1,3 +1,39 @@
+<header class="d-flex align-items-center justify-content-between">
+  <.link navigate={~p"/"} class="logo">
+    <img src={~p"/images/logo.png"} alt="Cat On Duty Logo" class="w-100" />
+  </.link>
+  <nav class="nav">
+    <.link patch={~p"/teams"} class="nav-link">
+      {dgettext("team", "Teams")}
+    </.link>
+    <.link patch={~p"/sentries"} class="nav-link">
+      {dgettext("sentry", "Sentries")}
+    </.link>
+    <li class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-expanded="false"
+      >
+        {gettext("Monitoring")}
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <.link navigate={~p"/dashboard"} class="dropdown-item">
+            {gettext("Dashboard")}
+          </.link>
+        </li>
+        <li>
+          <.link navigate={~p"/errors"} class="dropdown-item">
+            {gettext("Errors")}
+          </.link>
+        </li>
+      </ul>
+    </li>
+  </nav>
+</header>
 <main role="main" class="container">
   <.flash kind={:info} flash={@flash} />
   <.flash kind={:error} flash={@flash} />

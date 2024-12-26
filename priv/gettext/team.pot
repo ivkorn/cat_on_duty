@@ -16,7 +16,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/cat_on_duty_web/components/layouts/root.html.heex:21
+#: lib/cat_on_duty_web/components/layouts/app.html.heex:7
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:1
 #, elixir-autogen, elixir-format
 msgid "Teams"

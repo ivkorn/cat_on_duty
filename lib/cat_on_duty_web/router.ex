@@ -23,6 +23,16 @@ defmodule CatOnDutyWeb.Router do
   scope "/", CatOnDutyWeb do
     pipe_through :browser
 
+    live_dashboard "/dashboard",
+      metrics: CatOnDutyWeb.Telemetry,
+      ecto_repos: [
+        CatOnDuty.Repo,
+        CatOnDuty.ErrorTrackerRepo,
+        CatOnDuty.ObanRepo
+      ]
+
+    error_tracker_dashboard("/errors")
+
     live "/", HomeLive.Index
 
     live "/teams", TeamLive.Index, :index
@@ -38,20 +48,6 @@ defmodule CatOnDutyWeb.Router do
 
     live "/sentries/:id", SentryLive.Show, :show
     live "/sentries/:id/edit", SentryLive.Show, :edit_sentry
-  end
-
-  scope "/monitoring" do
-    pipe_through :browser
-
-    live_dashboard "/dashboard",
-      metrics: CatOnDutyWeb.Telemetry,
-      ecto_repos: [
-        CatOnDuty.Repo,
-        CatOnDuty.ErrorTrackerRepo,
-        CatOnDuty.ObanRepo
-      ]
-
-    error_tracker_dashboard("/errors")
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
