@@ -25,7 +25,10 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   secret_key_base: "2jSx4UA7RbQ3kRY8erZoQfOgmrNfSmoP86B6ixAgBjaR/Aa7vC3m/rTTbpdDAX1D",
-  render_errors: [view: CatOnDutyWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    formats: [html: CatOnDutyWeb.ErrorHTML],
+    layout: false
+  ],
   pubsub_server: CatOnDuty.PubSub,
   live_view: [signing_salt: "FKUqp7jQ"]
 
