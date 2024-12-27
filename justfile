@@ -64,8 +64,8 @@ full-check:
 
 gen-erd:
     #!/usr/bin/env bash
-    tmp_erd_path="$(mktemp -d)/ecto_erd.dot"; \
-    mix ecto.gen.erd --output-path=$tmp_erd_path && \
+    tmp_erd_path="$(mktemp -d)/ecto_erd.dot"
+    mix ecto.gen.erd --output-path=$tmp_erd_path
     dot -Tsvg $tmp_erd_path -o docs/erd.svg
 
 routes routes="":
