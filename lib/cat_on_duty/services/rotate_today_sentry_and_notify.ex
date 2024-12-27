@@ -8,6 +8,8 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
   alias CatOnDuty.Employees.Sentry
   alias CatOnDuty.Employees.Team
 
+  require Logger
+
   @spec for_all_teams :: {:ok, :rotated} | {:error, :not_business_day}
   def for_all_teams do
     if BusinessCalendar.working_day?(DateTime.utc_now()) do
@@ -58,20 +60,20 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
   defp notify_about_new_today_sentry(id) do
     case Employees.get_team!(id) do
       %Team{today_sentry: %Sentry{}} = team ->
-        notify(team, 0)
+        notify(team)
 
       _team_without_today_sentry ->
         {:ok, :no_sentry}
     end
   end
 
-  @spec notify(Team.t(), 0..6) :: :ok | {:error, :not_sended}
-  def notify(_team, 6), do: {:error, :not_sended}
-
-  def notify(%Team{today_sentry: sentry, tg_chat_id: chat_id} = _team, _retry) do
+  def notify(%Team{today_sentry: %Sentry{name: name, tg_username: tg_username}, tg_chat_id: chat_id}) do
     message =
-      dgettext("telegram", "❗Today's duty is on %{name}(%{username})", name: sentry.name, username: sentry.tg_username)
+      dgettext("telegram", "❗Today's duty is on %{name}(%{username})", name: name, username: tg_username)
 
-    Telegex.send_message(String.to_integer(chat_id), message)
+    case Telegex.send_message(String.to_integer(chat_id), message) do
+      {:error, msg} -> Logger.error("Telegram send message error: #{inspect(msg)}")
+      _ -> nil
+    end
   end
 end
