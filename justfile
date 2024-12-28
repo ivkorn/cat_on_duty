@@ -4,11 +4,15 @@ setup-backend:
     mix do deps.get, deps.compile, compile
 
 setup-frontend:
-    npm install
+    npm ci
+
+setup-db:
+    mix ecto.setup
 
 setup:
     @just setup-backend
     @just setup-frontend
+    @just setup-db
 
 check-formated:
     mix format --check-formatted
@@ -67,6 +71,13 @@ gen-erd:
     tmp_erd_path="$(mktemp -d)/ecto_erd.dot"
     mix ecto.gen.erd --output-path=$tmp_erd_path
     dot -Tsvg $tmp_erd_path -o docs/erd.svg
+
+dbmigrate:
+    mix ecto.migrate
+    @just gen-erd
+
+dbreset:
+    mix ecto.reset
 
 routes routes="":
     mix phx.routes | grep "{{ routes }}"
