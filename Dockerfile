@@ -30,7 +30,7 @@ ENV NODE_ENV="prod"
 COPY assets assets
 COPY package.json package-lock.json build.js ./
 
-RUN npm install --omit=dev
+RUN npm ci --omit=dev
 
 RUN npm run build
 
