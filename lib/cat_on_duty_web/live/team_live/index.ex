@@ -4,10 +4,11 @@ defmodule CatOnDutyWeb.TeamLive.Index do
 
   alias CatOnDuty.Employees
   alias CatOnDuty.Employees.Team
+  alias Phoenix.LiveView.Socket
 
   defguardp empty_search?(socket) when socket.assigns.search.params == %{}
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     if connected?(socket), do: Employees.subscribe()
 
@@ -17,7 +18,7 @@ defmodule CatOnDutyWeb.TeamLive.Index do
      |> stream(:teams, Employees.list_teams())}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info({Employees, [:team, :created], team}, socket) when empty_search?(socket) do
     {:noreply, stream_insert(socket, :teams, team)}
   end
@@ -38,12 +39,12 @@ defmodule CatOnDutyWeb.TeamLive.Index do
     {:noreply, stream_insert(socket, :teams, team)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_event("search", %{"search" => term} = search, socket) do
     search_term = String.trim(term)
 
@@ -53,6 +54,7 @@ defmodule CatOnDutyWeb.TeamLive.Index do
      |> stream(:teams, Employees.filter_teams(search_term), reset: true)}
   end
 
+  @spec apply_action(Socket.t(), :index | :new, any()) :: Socket.t()
   def apply_action(socket, :index, _params), do: assign(socket, :page_title, dgettext("form", "Teams"))
 
   def apply_action(socket, :new, _params) do

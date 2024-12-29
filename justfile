@@ -18,7 +18,7 @@ check-formated:
     mix format --check-formatted
 
 credo:
-    mix credo
+    mix credo --strict
 
 plts-create:
     mix dialyzer --plt

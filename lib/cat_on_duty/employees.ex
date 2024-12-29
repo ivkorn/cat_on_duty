@@ -59,14 +59,15 @@ defmodule CatOnDuty.Employees do
 
   @spec create_team(map) :: {:ok, Team.t()} | {:error, Ecto.Changeset.t()}
   def create_team(attrs \\ %{}) do
-    %Team{}
-    |> Team.changeset(attrs)
-    |> Repo.insert()
-    |> case do
-      {:ok, schema} -> {:ok, Repo.preload(schema, :today_sentry)}
+    created_team =
+      %Team{}
+      |> Team.changeset(attrs)
+      |> Repo.insert()
+
+    case created_team do
+      {:ok, schema} -> broadcast_change({:ok, Repo.preload(schema, :today_sentry)}, [:team, :created])
       error -> error
     end
-    |> broadcast_change([:team, :created])
   end
 
   @spec update_team(Team.t(), map) :: {:ok, Team.t()} | {:error, Ecto.Changeset.t()}
@@ -143,14 +144,15 @@ defmodule CatOnDuty.Employees do
 
   @spec create_sentry(map) :: {:ok, Sentry.t()} | {:error, Ecto.Changeset.t()}
   def create_sentry(attrs \\ %{}) do
-    %Sentry{}
-    |> Sentry.changeset(attrs)
-    |> Repo.insert()
-    |> case do
-      {:ok, schema} -> {:ok, Repo.preload(schema, :team)}
+    created_sentry =
+      %Sentry{}
+      |> Sentry.changeset(attrs)
+      |> Repo.insert()
+
+    case created_sentry do
+      {:ok, schema} -> broadcast_change({:ok, Repo.preload(schema, :team)}, [:sentry, :created])
       error -> error
     end
-    |> broadcast_change([:sentry, :created])
   end
 
   @spec update_sentry(Sentry.t(), map) :: {:ok, Sentry.t()} | {:error, Ecto.Changeset.t()}

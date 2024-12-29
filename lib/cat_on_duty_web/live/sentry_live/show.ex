@@ -6,14 +6,14 @@ defmodule CatOnDutyWeb.SentryLive.Show do
   alias CatOnDuty.Employees
   alias Phoenix.LiveView.Socket
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(%{"id" => id}, _session, socket) do
     if connected?(socket), do: Employees.subscribe()
 
     {:ok, local_fetch(socket, id)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info({Employees, [:sentry, :deleted], %{id: deleted_id}}, %{assigns: %{sentry: sentry}} = socket) do
     if deleted_id == sentry.id do
       {:noreply, push_navigate(socket, to: ~p"/sentries")}
@@ -38,7 +38,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
     end
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(%{"id" => id}, _, socket) do
     sentry = Employees.get_sentry!(id)
 
@@ -48,7 +48,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
      |> assign(:sentry, sentry)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_event("delete", %{"id" => id}, socket) do
     {:ok, _} =
       id

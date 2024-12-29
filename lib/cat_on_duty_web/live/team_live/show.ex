@@ -9,14 +9,14 @@ defmodule CatOnDutyWeb.TeamLive.Show do
   alias CatOnDuty.Services.RotateTodaySentryAndNotify
   alias Phoenix.LiveView.Socket
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(%{"id" => id}, _session, socket) do
     if connected?(socket), do: Employees.subscribe()
 
     {:ok, local_fetch(socket, id)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info({Employees, [:team, :deleted], %{id: deleted_id}}, %{assigns: %{team: team}} = socket) do
     if deleted_id == team.id do
       {:noreply, push_navigate(socket, to: ~p"/teams")}
@@ -36,7 +36,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
   def handle_info({Employees, [:sentry | _], _}, %{assigns: %{team: team}} = socket),
     do: {:noreply, local_fetch(socket, team.id)}
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(%{"id" => id, "sentry_id" => sentry_id}, _, socket) do
     team = Employees.get_team!(id)
     sentry = Employees.get_sentry!(sentry_id)
@@ -56,7 +56,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
      |> apply_action(socket.assigns.live_action, team)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_event("delete", %{"id" => id}, socket) do
     {:ok, _} =
       id

@@ -5,6 +5,7 @@ defmodule CatOnDuty.BusinessCalendar.Parser do
   [from_lib: "xmerl/include/xmerl.hrl"]
   |> Record.extract_all()
   |> Enum.each(fn {key, value} ->
+    # credo:disable-for-next-line Credo.Check.Warning.UnsafeToAtom
     name = key |> Atom.to_string() |> Macro.underscore() |> String.to_atom()
     Record.defrecord(name, key, value)
   end)

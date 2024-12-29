@@ -71,8 +71,10 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
     message =
       dgettext("telegram", "❗Today's duty is on %{name}(%{username})", name: name, username: tg_username)
 
-    case Telegex.send_message(String.to_integer(chat_id), message) do
-      {:error, msg} -> Logger.error("Telegram send message error: #{inspect(msg)}")
+    chat_id_int = String.to_integer(chat_id)
+
+    case Telegex.send_message(chat_id_int, message) do
+      {:error, msg} -> Logger.error(fn -> "Telegram send message error: #{inspect(msg)}" end)
       _ -> nil
     end
   end

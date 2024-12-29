@@ -8,7 +8,7 @@ defmodule CatOnDutyWeb.SentryLive.FormComponent do
   alias CatOnDuty.Employees
   alias Phoenix.LiveView.Socket
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def update(%{sentry: sentry} = assigns, socket) do
     changeset = Employees.change_sentry(sentry)
 
@@ -19,7 +19,7 @@ defmodule CatOnDutyWeb.SentryLive.FormComponent do
      |> assign_new(:form, fn -> to_form(changeset) end)}
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def handle_event("validate", %{"sentry" => sentry_params}, socket) do
     changeset = Employees.change_sentry(socket.assigns.sentry, sentry_params)
 

@@ -8,7 +8,7 @@ defmodule CatOnDutyWeb.TeamLive.FormComponent do
   alias CatOnDuty.Employees
   alias Phoenix.LiveView.Socket
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def update(%{team: team} = assigns, socket) do
     changeset = Employees.change_team(team)
 
@@ -18,7 +18,7 @@ defmodule CatOnDutyWeb.TeamLive.FormComponent do
      |> assign_new(:form, fn -> to_form(changeset) end)}
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def handle_event("validate", %{"team" => team_params}, socket) do
     changeset =
       Employees.change_team(socket.assigns.team, team_params)

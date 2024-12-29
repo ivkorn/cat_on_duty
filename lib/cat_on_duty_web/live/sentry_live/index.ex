@@ -9,7 +9,7 @@ defmodule CatOnDutyWeb.SentryLive.Index do
 
   defguardp empty_search?(socket) when socket.assigns.search.params == %{}
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     if connected?(socket), do: Employees.subscribe()
 
@@ -19,7 +19,7 @@ defmodule CatOnDutyWeb.SentryLive.Index do
      |> stream(:sentries, Employees.list_sentries())}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info({Employees, [:sentry, :created], sentry}, socket) when empty_search?(socket) do
     {:noreply, stream_insert(socket, :sentries, sentry)}
   end
@@ -40,10 +40,10 @@ defmodule CatOnDutyWeb.SentryLive.Index do
     {:noreply, stream_insert(socket, :sentries, sentry)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(params, _url, socket), do: {:noreply, apply_action(socket, socket.assigns.live_action, params)}
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_event("search", %{"search" => term} = search, socket) do
     search_term = String.trim(term)
 
