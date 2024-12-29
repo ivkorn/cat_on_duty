@@ -22,7 +22,7 @@
     "esbuild": "^0.24.2",
     "esbuild-sass-plugin": "^3.3.1",
     "phoenix": "^1.7.18",
-    "phoenix_html": "^3.3.4",
+    "phoenix_html": "^4.2.0",
     "phoenix_live_view": "^1.0.1",
     "postcss": "^8.4.49",
     "postcss-preset-env": "^10.1.3",
