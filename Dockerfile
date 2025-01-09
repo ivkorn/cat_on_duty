@@ -97,16 +97,15 @@ ENV LANG="ru_RU.UTF-8" \
   LC_ALL="ru_RU.UTF-8"
 
 WORKDIR "/app"
-# RUN chown nobody /app
+RUN chown nobody /app
 
 # set runner ENV
 ENV MIX_ENV="prod"
 
 # Only copy the final release from the build stage
-# COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/cat_on_duty ./
-COPY --from=builder /app/_build/${MIX_ENV}/rel/cat_on_duty ./
+COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/cat_on_duty ./
 
-# USER nobody
+USER nobody
 
 # If using an environment that doesn't automatically reap zombie processes, it is
 # advised to add an init process such as tini via `apt-get install`
