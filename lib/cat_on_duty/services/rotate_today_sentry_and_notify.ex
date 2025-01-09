@@ -75,7 +75,7 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
 
     case Telegex.send_message(chat_id_int, message) do
       {:error, msg} -> Logger.error(fn -> "Telegram send message error: #{inspect(msg)}" end)
-      _ -> nil
+      {:ok, _} -> Logger.info(fn -> "Telegram send message successful to sentry: #{name}" end)
     end
   end
 end
