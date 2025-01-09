@@ -18,7 +18,7 @@ defmodule CatOnDuty.BusinessCalendar.ParserTest do
     result = Parser.parse_from_xml(context.xml_calendar)
 
     Enum.each(result, fn {date, type} ->
-      assert is_struct(date, Date)
+      assert is_binary(date)
       assert Enum.member?(@types, type)
     end)
   end

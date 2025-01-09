@@ -29,7 +29,7 @@ defmodule CatOnDuty.BusinessCalendar.Parser do
     year
     |> Date.new!(1, 1)
     |> Date.range(Date.new!(year, 12, 31))
-    |> Map.new(fn date -> {date, fetch_date_type(date, working_dates, day_off_dates)} end)
+    |> Map.new(&{Date.to_iso8601(&1), fetch_date_type(&1, working_dates, day_off_dates)})
   end
 
   defp extract_year(document) do

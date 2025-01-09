@@ -56,6 +56,8 @@ config :cat_on_duty,
     CatOnDuty.ObanRepo
   ]
 
+config :ecto_sqlite3, json_library: JSON
+
 config :error_tracker,
   repo: CatOnDuty.ErrorTrackerRepo,
   otp_app: :cat_on_duty,
