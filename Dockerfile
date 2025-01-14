@@ -15,13 +15,15 @@ ARG ELIXIR_VERSION=1.18.1
 ARG OTP_VERSION=27.2
 ARG NODEJS_VERSION=22.13
 ARG DEBIAN_VERSION=bookworm
-ARG DEBIAN_DATE=20241223
+ARG DEBIAN_DATE=20250113
 
 ARG ASSETS_BUILDER_IMAGE="node:${NODEJS_VERSION}-${DEBIAN_VERSION}-slim"
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}-${DEBIAN_DATE}-slim"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}-${DEBIAN_DATE}-slim"
 
 FROM ${ASSETS_BUILDER_IMAGE} AS assets_builder
+
+RUN apt-get update && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -37,8 +39,9 @@ RUN npm run build
 FROM ${BUILDER_IMAGE} AS builder
 
 # install build dependencies
-RUN apt-get update -y && apt-get install -y build-essential git libsqlite3-dev \
-  && apt-get clean && rm -f /var/lib/apt/lists/*_*
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends build-essential git libsqlite3-dev && \
+  rm -rf /var/lib/apt/lists/*
 
 # prepare build dir
 WORKDIR /app
@@ -85,12 +88,14 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE}
 
-RUN apt-get update -y && \
-  apt-get install -y libstdc++6 openssl libncurses5 locales ca-certificates libsqlite3-dev \
-  && apt-get clean && rm -f /var/lib/apt/lists/*_*
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends libstdc++6 openssl libncurses5 locales ca-certificates libsqlite3-dev && \
+  rm -rf /var/lib/apt/lists/*
 
 # Set the locale
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && sed -i '/ru_RU.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+  sed -i '/ru_RU.UTF-8/s/^# //g' /etc/locale.gen && \
+  locale-gen
 
 ENV LANG="ru_RU.UTF-8" \
   LANGUAGE="ru_RU:ru" \
