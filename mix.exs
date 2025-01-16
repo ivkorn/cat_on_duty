@@ -48,6 +48,7 @@ defmodule CatOnDuty.MixProject do
       {:gettext, "~> 0.26"},
       {:bandit, "~> 1.5"},
       {:oban, "~> 2.18"},
+      {:oban_web, "~> 2.11"},
       {:telegex, "~> 1.8"},
       {:finch, "~> 0.19"},
       {:phoenix_live_reload, "~> 1.5", only: :dev},

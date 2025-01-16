@@ -2,6 +2,7 @@ defmodule CatOnDutyWeb.Router do
   use CatOnDutyWeb, :router
   use ErrorTracker.Web, :router
 
+  import Oban.Web.Router
   import Phoenix.LiveDashboard.Router
 
   alias CatOnDutyWeb.Plugs
@@ -31,6 +32,7 @@ defmodule CatOnDutyWeb.Router do
         CatOnDuty.ObanRepo
       ]
 
+    oban_dashboard("/oban")
     error_tracker_dashboard("/errors")
 
     live "/", HomeLive.Index

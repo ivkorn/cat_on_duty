@@ -25,3 +25,8 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Errors"
 msgstr ""
+
+#: lib/cat_on_duty_web/components/layouts/app.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Jobs"
+msgstr ""
