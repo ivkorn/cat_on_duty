@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/cat_on_duty/services/rotate_today_sentry_and_notify.ex:72
+#: lib/cat_on_duty/services/rotate_today_sentry_and_notify.ex:73
 #, elixir-autogen, elixir-format
 msgid "❗Today's duty is on %{name}(%{username})"
 msgstr ""

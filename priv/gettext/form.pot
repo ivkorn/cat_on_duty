@@ -66,13 +66,13 @@ msgstr ""
 msgid "Are you shure?"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:62
+#: lib/cat_on_duty_web/live/team_live/index.ex:60
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "New team"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:58
+#: lib/cat_on_duty_web/live/team_live/index.ex:56
 #, elixir-autogen, elixir-format
 msgid "Teams"
 msgstr ""
