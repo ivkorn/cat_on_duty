@@ -88,7 +88,7 @@ serve:
 gettext:
     mix gettext.extract --merge
 
-console local_node_name="debug@127.0.0.1":
+remsh local_node_name="debug@127.0.0.1":
     #!/usr/bin/env bash
     read_vars() {
         ansible-vault decrypt $1 --vault-password-file .vault --output - 2> /dev/null || cat $1

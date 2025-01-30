@@ -22,6 +22,10 @@ Deploy:
 ```sh
 just deploy <tag>
 ```
+Remote console:
+```sh
+just remsh
+```
 
 # License
 
