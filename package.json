@@ -21,7 +21,7 @@
     "bootstrap": "^5.3.3",
     "esbuild": "^0.24.2",
     "esbuild-sass-plugin": "^3.3.1",
-    "phoenix": "^1.7.18",
+    "phoenix": "^1.7.20",
     "phoenix_html": "^4.2.0",
     "phoenix_live_view": "^1.0.3",
     "postcss": "^8.5.1",
