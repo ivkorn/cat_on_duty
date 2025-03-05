@@ -7,18 +7,13 @@
 # General application configuration
 import Config
 
+# Use system sqlite3 library
+System.put_env("EXQLITE_USE_SYSTEM", "1")
+
 # Configure your databases
-config :cat_on_duty, CatOnDuty.ErrorTrackerRepo,
-  default_transaction_mode: :immediate,
-  priv: "priv/repos/error_tracker_repo"
-
-config :cat_on_duty, CatOnDuty.ObanRepo,
-  default_transaction_mode: :immediate,
-  priv: "priv/repos/oban_repo"
-
-config :cat_on_duty, CatOnDuty.Repo,
-  default_transaction_mode: :immediate,
-  priv: "priv/repos/repo"
+config :cat_on_duty, CatOnDuty.ErrorTrackerRepo, priv: "priv/repos/error_tracker_repo"
+config :cat_on_duty, CatOnDuty.ObanRepo, priv: "priv/repos/oban_repo"
+config :cat_on_duty, CatOnDuty.Repo, priv: "priv/repos/repo"
 
 # Configures the endpoint
 config :cat_on_duty, CatOnDutyWeb.Endpoint,
@@ -62,6 +57,8 @@ config :error_tracker,
   repo: CatOnDuty.ErrorTrackerRepo,
   otp_app: :cat_on_duty,
   enabled: false
+
+config :exqlite, default_transaction_mode: :immediate
 
 config :gettext, :default_locale, "ru"
 

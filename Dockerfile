@@ -12,10 +12,10 @@
 #   - Ex: hexpm/elixir:1.17.2-erlang-27.0.1-debian-bullseye-20240812-slim
 #
 ARG ELIXIR_VERSION=1.18.2
-ARG OTP_VERSION=27.2.1
-ARG NODEJS_VERSION=22.13.1
+ARG OTP_VERSION=27.2.4
+ARG NODEJS_VERSION=22.14.0
 ARG DEBIAN_VERSION=bookworm
-ARG DEBIAN_DATE=20250113
+ARG DEBIAN_DATE=20250224
 
 ARG ASSETS_BUILDER_IMAGE="node:${NODEJS_VERSION}-${DEBIAN_VERSION}-slim"
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}-${DEBIAN_DATE}-slim"
@@ -51,8 +51,7 @@ RUN mix local.hex --force && \
   mix local.rebar --force
 
 # set build ENV
-ENV MIX_ENV="prod" \
-  EXQLITE_USE_SYSTEM="1"
+ENV MIX_ENV="prod"
 
 # install mix dependencies
 COPY mix.exs mix.lock ./

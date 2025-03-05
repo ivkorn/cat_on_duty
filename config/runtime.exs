@@ -1,11 +1,11 @@
 import Config
 
 {_, os_type} = :os.type()
-arch = :system_architecture |> :erlang.system_info() |> List.to_string() |> String.split("-") |> List.first()
-extensions_path = Application.app_dir(:cat_on_duty, "priv/sqlite/#{os_type}-#{arch}")
-sqlite_extensions = Enum.map(["text"], &Path.join(extensions_path, &1))
+[arch | _] = :system_architecture |> :erlang.system_info() |> List.to_string() |> String.split("-")
+extensions_dir = Application.app_dir(:cat_on_duty, "priv/sqlite/#{os_type}-#{arch}")
+exqlite_extensions = Path.wildcard("#{extensions_dir}/*.{so,dylib}")
 
-config :cat_on_duty, CatOnDuty.Repo, load_extensions: sqlite_extensions
+config :exqlite, load_extensions: exqlite_extensions
 
 if System.get_env("PHX_SERVER") do
   config :cat_on_duty, CatOnDutyWeb.Endpoint, server: true

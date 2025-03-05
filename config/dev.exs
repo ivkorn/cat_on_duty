@@ -71,6 +71,7 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
+config :logger, level: :debug
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
