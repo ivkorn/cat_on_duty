@@ -7,13 +7,13 @@
     title={@page_title}
     action={:new}
     team={@team}
-    return_to={~p"/teams"}
+    return_to={@return_to}
   />
 <% end %>
 
 <.form for={@search} phx-change="search" id="search-form">
   <.input
-    field={@search[:search]}
+    field={@search[:name]}
     autofocus="true"
     phx-debounce="300"
     type="search"

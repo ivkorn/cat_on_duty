@@ -35,7 +35,6 @@ config :cat_on_duty, Oban,
      ]}
   ]
 
-config :cat_on_duty, :basic_auth, username: "l", password: "p"
 config :cat_on_duty, :session_encryption_salt, "session_encryption_salt"
 config :cat_on_duty, :session_signing_salt, "session_signing_salt"
 
@@ -52,8 +51,6 @@ config :cat_on_duty,
     CatOnDuty.ErrorTrackerRepo,
     CatOnDuty.ObanRepo
   ]
-
-config :ecto_sqlite3, json_library: JSON
 
 config :error_tracker,
   repo: CatOnDuty.ErrorTrackerRepo,

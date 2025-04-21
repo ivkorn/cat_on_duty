@@ -14,6 +14,7 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
   server: false
 
 config :cat_on_duty, Oban, testing: :inline
+config :cat_on_duty, :basic_auth, username: "l", password: "p"
 
 # Configure your databases
 config :cat_on_duty, [

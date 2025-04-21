@@ -82,6 +82,9 @@ routes routes="":
     mix phx.routes | grep "{{ routes }}"
 
 serve:
+    iex -S mix phx.server
+
+serve-debug:
     iex --dbg pry -S mix phx.server
 
 gettext:

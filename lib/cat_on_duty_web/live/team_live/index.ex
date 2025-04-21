@@ -9,13 +9,16 @@ defmodule CatOnDutyWeb.TeamLive.Index do
   defguardp empty_search?(socket) when socket.assigns.search.params == %{}
 
   @impl Phoenix.LiveView
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     if connected?(socket), do: Employees.subscribe()
+
+    search_params = Map.take(params, ["name"])
+    search = params |> Map.get("name", "") |> String.trim()
 
     {:ok,
      socket
-     |> assign(:search, to_form(%{}))
-     |> stream(:teams, Employees.list_teams())}
+     |> assign(:search, to_form(search_params))
+     |> stream(:teams, Employees.filter_teams(search))}
   end
 
   @impl Phoenix.LiveView
@@ -40,26 +43,35 @@ defmodule CatOnDutyWeb.TeamLive.Index do
   end
 
   @impl Phoenix.LiveView
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  def handle_params(_params, url, %{assigns: %{live_action: live_action}} = socket) do
+    {:noreply, apply_action(socket, live_action, url)}
   end
 
   @impl Phoenix.LiveView
-  def handle_event("search", %{"search" => term} = search, socket) do
-    search_term = String.trim(term)
+  def handle_event("search", params, socket) do
+    search_params = Map.take(params, ["name"])
+    search = params |> Map.get("name", "") |> String.trim()
 
     {:noreply,
      socket
-     |> assign(:search, to_form(search))
-     |> stream(:teams, Employees.filter_teams(search_term), reset: true)}
+     |> assign(:search, to_form(search_params))
+     |> stream(:teams, Employees.filter_teams(search), reset: true)
+     |> push_patch(to: form_search_url(search))}
   end
 
-  @spec apply_action(Socket.t(), :index | :new, any()) :: Socket.t()
-  def apply_action(socket, :index, _params), do: assign(socket, :page_title, dgettext("form", "Teams"))
+  @spec apply_action(Socket.t(), :index | :new, String.t()) :: Socket.t()
+  defp apply_action(socket, :index, url) do
+    return_to = url |> URI.parse() |> then(&if is_nil(&1.query), do: &1.path, else: "#{&1.path}?#{&1.query}")
+    socket |> assign(:page_title, dgettext("form", "Teams")) |> assign(:return_to, return_to)
+  end
 
-  def apply_action(socket, :new, _params) do
+  defp apply_action(socket, :new, _url) do
     socket
     |> assign(:page_title, dgettext("form", "New team"))
     |> assign(:team, %Team{})
   end
+
+  @spec form_search_url(String.t()) :: String.t()
+  defp form_search_url(""), do: ~p"/teams"
+  defp form_search_url(search) when is_binary(search), do: ~p"/teams?name=#{search}"
 end

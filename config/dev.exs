@@ -54,13 +54,16 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
     ]
   ]
 
+config :cat_on_duty, :basic_auth, username: "l", password: "p"
+
 # Configure your databases
 config :cat_on_duty, [
   {CatOnDuty.ErrorTrackerRepo,
    database: "priv/db/error_tracker_dev.db", stacktrace: true, show_sensitive_data_on_connection_error: true, pool_size: 3},
   {CatOnDuty.Repo,
    database: "priv/db/cat_on_duty_dev.db", stacktrace: true, show_sensitive_data_on_connection_error: true, pool_size: 3},
-  {CatOnDuty.ObanRepo, database: "priv/db/oban_dev.db", stacktrace: true, show_sensitive_data_on_connection_error: true, pool_size: 3}
+  {CatOnDuty.ObanRepo,
+   database: "priv/db/oban_dev.db", stacktrace: true, show_sensitive_data_on_connection_error: true, pool_size: 3}
 ]
 
 # Do not include metadata nor timestamps in development logs
