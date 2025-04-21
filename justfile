@@ -67,14 +67,13 @@ full-check:
     @just test
 
 gen-erd:
-    #!/usr/bin/env bash
-    tmp_erd_path="$(mktemp -d)/ecto_erd.dot"
-    mix ecto.gen.erd --output-path=$tmp_erd_path
-    dot -Tsvg $tmp_erd_path -o docs/erd.svg
+    mix ecto.gen.erd --output-path=docs/ecto_erd.dot
+    dot -Tsvg docs/ecto_erd.dot -o docs/erd.svg
+    rm docs/ecto_erd.dot
 
-dbmigrate:
-    mix ecto.migrate
-    @just gen-erd
+dbmigrate *options="":
+    mix ecto.migrate {{ options }}
+    {{ if env_var_or_default("MIX_ENV", "dev") == "dev" { "just gen-erd" } else { "" } }}
 
 dbreset:
     mix ecto.reset

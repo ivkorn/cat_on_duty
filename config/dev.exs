@@ -1,24 +1,5 @@
 import Config
 
-# Configure your databases
-config :cat_on_duty, CatOnDuty.ErrorTrackerRepo,
-  database: Path.expand("../priv/db/error_tracker_dev.db", __DIR__),
-  pool_size: 3,
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true
-
-config :cat_on_duty, CatOnDuty.ObanRepo,
-  database: Path.expand("../priv/db/oban_dev.db", __DIR__),
-  pool_size: 3,
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true
-
-config :cat_on_duty, CatOnDuty.Repo,
-  database: Path.expand("../priv/db/cat_on_duty_dev.db", __DIR__),
-  pool_size: 3,
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -30,9 +11,13 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [
-    npm: ["run", "build:watch"]
-  ]
+  watchers:
+    Enum.map(
+      [
+        ["./build", "--watch"]
+      ],
+      &{Path.join(Path.dirname(__DIR__), "process_wrapper"), &1}
+    )
 
 # ## SSL Support
 #
@@ -68,6 +53,15 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
       ~r"lib/cat_on_duty_web/templates/.*(eex)$"
     ]
   ]
+
+# Configure your databases
+config :cat_on_duty, [
+  {CatOnDuty.ErrorTrackerRepo,
+   database: "priv/db/error_tracker_dev.db", stacktrace: true, show_sensitive_data_on_connection_error: true, pool_size: 3},
+  {CatOnDuty.Repo,
+   database: "priv/db/cat_on_duty_dev.db", stacktrace: true, show_sensitive_data_on_connection_error: true, pool_size: 3},
+  {CatOnDuty.ObanRepo, database: "priv/db/oban_dev.db", stacktrace: true, show_sensitive_data_on_connection_error: true, pool_size: 3}
+]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

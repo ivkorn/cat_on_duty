@@ -10,11 +10,6 @@ import Config
 # Use system sqlite3 library
 System.put_env("EXQLITE_USE_SYSTEM", "1")
 
-# Configure your databases
-config :cat_on_duty, CatOnDuty.ErrorTrackerRepo, priv: "priv/repos/error_tracker_repo"
-config :cat_on_duty, CatOnDuty.ObanRepo, priv: "priv/repos/oban_repo"
-config :cat_on_duty, CatOnDuty.Repo, priv: "priv/repos/repo"
-
 # Configures the endpoint
 config :cat_on_duty, CatOnDutyWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
@@ -44,6 +39,13 @@ config :cat_on_duty, :basic_auth, username: "l", password: "p"
 config :cat_on_duty, :session_encryption_salt, "session_encryption_salt"
 config :cat_on_duty, :session_signing_salt, "session_signing_salt"
 
+# Configure your databases
+config :cat_on_duty, [
+  {CatOnDuty.ErrorTrackerRepo, priv: "priv/repos/error_tracker_repo"},
+  {CatOnDuty.ObanRepo, priv: "priv/repos/oban_repo"},
+  {CatOnDuty.Repo, priv: "priv/repos/repo"}
+]
+
 config :cat_on_duty,
   ecto_repos: [
     CatOnDuty.Repo,
@@ -56,7 +58,7 @@ config :ecto_sqlite3, json_library: JSON
 config :error_tracker,
   repo: CatOnDuty.ErrorTrackerRepo,
   otp_app: :cat_on_duty,
-  enabled: false
+  enabled: true
 
 config :exqlite, default_transaction_mode: :immediate
 
@@ -71,6 +73,8 @@ config :logger, :console,
 config :phoenix, :json_library, JSON
 
 config :telegex, caller_adapter: Finch
+
+config :tower, reporters: [TowerErrorTracker], log_level: :error
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

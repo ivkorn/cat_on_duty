@@ -1,11 +1,28 @@
 import Config
 
-{_, os_type} = :os.type()
-[arch | _] = :system_architecture |> :erlang.system_info() |> List.to_string() |> String.split("-")
-extensions_dir = Application.app_dir(:cat_on_duty, "priv/sqlite/#{os_type}-#{arch}")
-exqlite_extensions = Path.wildcard("#{extensions_dir}/*.{so,dylib}")
+# config/runtime.exs is executed for all environments, including
+# during releases. It is executed after compilation and before the
+# system starts, so it is typically used to load production configuration
+# and secrets from environment variables or elsewhere. Do not define
+# any compile-time configuration in here, as it won't be applied.
+# The block below contains prod specific runtime configuration.
 
-config :exqlite, load_extensions: exqlite_extensions
+# ## Using releases
+#
+# If you use `mix release`, you need to explicitly enable the server
+# by passing the PHX_SERVER=true when you start it:
+#
+#     PHX_SERVER=true bin/cheap_tech start
+#
+# Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
+# script that automatically sets the env var above.
+
+config :cat_on_duty, CatOnDuty.Repo,
+  load_extensions:
+    (with {_family, os_type} <- :os.type(),
+          [arch | _] <- :system_architecture |> :erlang.system_info() |> :string.tokens(~c"-") do
+       :cat_on_duty |> Application.app_dir("priv/sqlite/#{os_type}-#{arch}/*.so") |> Path.wildcard()
+     end)
 
 if System.get_env("PHX_SERVER") do
   config :cat_on_duty, CatOnDutyWeb.Endpoint, server: true
@@ -27,19 +44,16 @@ if config_env() == :prod do
   tg_bot_token = System.fetch_env!("TG_BOT_TOKEN")
 
   config :cat_on_duty, CatOnDuty.ErrorTrackerRepo,
-    pool_size: String.to_integer(db_pool_size),
-    busy_timeout: 5000,
-    database: Path.join(database_path, "error_tracker.db")
+    database: Path.join(database_path, "error_tracker.db"),
+    pool_size: String.to_integer(db_pool_size)
 
   config :cat_on_duty, CatOnDuty.ObanRepo,
-    pool_size: String.to_integer(db_pool_size),
-    busy_timeout: 5000,
-    database: Path.join(database_path, "oban.db")
+    database: Path.join(database_path, "oban.db"),
+    pool_size: String.to_integer(db_pool_size)
 
   config :cat_on_duty, CatOnDuty.Repo,
-    pool_size: String.to_integer(db_pool_size),
-    busy_timeout: 5000,
-    database: Path.join(database_path, "cat_on_duty.db")
+    database: Path.join(database_path, "cat_on_duty.db"),
+    pool_size: String.to_integer(db_pool_size)
 
   config :cat_on_duty, CatOnDutyWeb.Endpoint,
     url: [scheme: "https", host: host, port: 443],
