@@ -25,7 +25,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
     end
   end
 
-  def handle_info({Employees, [:team | _], %{id: updated_id}}, %{assigns: %{team: team}} = socket) do
+  def handle_info({Employees, [:team | _notifications], %{id: updated_id}}, %{assigns: %{team: team}} = socket) do
     if updated_id == team.id do
       {:noreply, local_fetch(socket, team.id)}
     else
@@ -33,11 +33,11 @@ defmodule CatOnDutyWeb.TeamLive.Show do
     end
   end
 
-  def handle_info({Employees, [:sentry | _], _}, %{assigns: %{team: team}} = socket),
+  def handle_info({Employees, [:sentry | _notifications], _sentry}, %{assigns: %{team: team}} = socket),
     do: {:noreply, local_fetch(socket, team.id)}
 
   @impl Phoenix.LiveView
-  def handle_params(%{"id" => id, "sentry_id" => sentry_id}, _, socket) do
+  def handle_params(%{"id" => id, "sentry_id" => sentry_id}, _url, socket) do
     team = Employees.get_team!(id)
     sentry = Employees.get_sentry!(sentry_id)
 
@@ -47,7 +47,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
      |> apply_action(socket.assigns.live_action, sentry)}
   end
 
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(%{"id" => id}, _url, socket) do
     team = Employees.get_team!(id)
 
     {:noreply,
@@ -58,7 +58,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
 
   @impl Phoenix.LiveView
   def handle_event("delete", %{"id" => id}, socket) do
-    {:ok, _} =
+    {:ok, _team} =
       id
       |> Employees.get_team!()
       |> Employees.delete_team()
@@ -72,7 +72,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
   def handle_event("delete_sentry", %{"id" => id}, socket) do
     sentry = Employees.get_sentry!(id)
 
-    {:ok, _} = Employees.delete_sentry(sentry)
+    {:ok, _sentry} = Employees.delete_sentry(sentry)
 
     team = Employees.get_team!(sentry.team_id)
 
@@ -83,7 +83,7 @@ defmodule CatOnDutyWeb.TeamLive.Show do
   end
 
   def handle_event("rotate_today_sentry", %{"id" => id}, socket) do
-    {:ok, _} = RotateTodaySentryAndNotify.for_team(id)
+    {:ok, _result} = RotateTodaySentryAndNotify.for_team(id)
 
     {:noreply,
      socket

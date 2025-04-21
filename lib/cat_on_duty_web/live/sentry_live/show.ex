@@ -22,7 +22,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
     end
   end
 
-  def handle_info({Employees, [:sentry | _], %{id: updated_id}}, %{assigns: %{sentry: sentry}} = socket) do
+  def handle_info({Employees, [:sentry | _notifications], %{id: updated_id}}, %{assigns: %{sentry: sentry}} = socket) do
     if updated_id == sentry.id do
       {:noreply, local_fetch(socket, sentry.id)}
     else
@@ -30,7 +30,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
     end
   end
 
-  def handle_info({Employees, [:team | _], %{id: updated_team_id}}, %{assigns: %{sentry: sentry}} = socket) do
+  def handle_info({Employees, [:team | _notifications], %{id: updated_team_id}}, %{assigns: %{sentry: sentry}} = socket) do
     if updated_team_id == sentry.team_id do
       {:noreply, local_fetch(socket, sentry.id)}
     else
@@ -39,7 +39,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
   end
 
   @impl Phoenix.LiveView
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(%{"id" => id}, _url, socket) do
     sentry = Employees.get_sentry!(id)
 
     {:noreply,
@@ -50,7 +50,7 @@ defmodule CatOnDutyWeb.SentryLive.Show do
 
   @impl Phoenix.LiveView
   def handle_event("delete", %{"id" => id}, socket) do
-    {:ok, _} =
+    {:ok, _sentry} =
       id
       |> Employees.get_sentry!()
       |> Employees.delete_sentry()

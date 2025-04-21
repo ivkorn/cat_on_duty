@@ -405,7 +405,7 @@ defmodule CatOnDutyWeb.CoreComponents do
   attr :name, :string, required: true
   attr :class, :string, default: nil
 
-  def icon(%{name: "hero-" <> _} = assigns) do
+  def icon(%{name: "hero-" <> _icon_name} = assigns) do
     ~H"""
     <span class={[@name, @class]} />
     """

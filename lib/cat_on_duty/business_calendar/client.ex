@@ -7,7 +7,7 @@ defmodule CatOnDuty.BusinessCalendar.Client do
     case response_result do
       {:ok, %{status: 200, body: body}} -> {:ok, to_xml(body)}
       {:ok, %{status: 404}} -> {:error, :not_found}
-      _ -> {:error, :unknown_error}
+      _any -> {:error, :unknown_error}
     end
   end
 

@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Gen.Calendar do
     run([year, @default_dir_path])
   end
 
-  def run([year, dir_path | _]) do
+  def run([year, dir_path | _other]) do
     info =
       case BusinessCalendar.fetch(year) do
         {:ok, xml_document} ->
@@ -26,7 +26,7 @@ defmodule Mix.Tasks.Gen.Calendar do
         {:error, :not_found} ->
           "Календарь на #{year} год отсутствует"
 
-        _ ->
+        _unmatched_error ->
           "Ошибка"
       end
 

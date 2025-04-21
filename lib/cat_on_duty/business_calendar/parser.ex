@@ -82,7 +82,7 @@ defmodule CatOnDuty.BusinessCalendar.Parser do
   defp working_date?(date, working_dates, day_off_dates) do
     case Date.day_of_week(date) do
       day when day in @regular_day_offs -> Enum.member?(working_dates, date)
-      _ -> !Enum.member?(day_off_dates, date)
+      _other -> !Enum.member?(day_off_dates, date)
     end
   end
 end

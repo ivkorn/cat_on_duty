@@ -34,9 +34,9 @@ defmodule CatOnDutyWeb.TeamLive.Index do
     {:noreply, stream_delete(socket, :teams, team)}
   end
 
-  def handle_info({Employees, [:team | _], _}, socket), do: {:noreply, socket}
+  def handle_info({Employees, [:team | _notifications], _team}, socket), do: {:noreply, socket}
 
-  def handle_info({Employees, [:sentry | _], _}, socket), do: {:noreply, socket}
+  def handle_info({Employees, [:sentry | _notifications], _sentry}, socket), do: {:noreply, socket}
 
   def handle_info({CatOnDutyWeb.TeamLive.FormComponent, {:saved, team}}, socket) do
     {:noreply, stream_insert(socket, :teams, team)}

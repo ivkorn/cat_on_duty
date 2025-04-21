@@ -23,7 +23,7 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
   @spec for_team(pos_integer) :: {:ok, pid}
   def for_team(id) do
     Task.start_link(fn ->
-      {:ok, _} =
+      {:ok, _team} =
         id
         |> Employees.get_team!()
         |> rotate_today_sentry()
@@ -39,7 +39,7 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
         Employees.update_team_today_sentry(team, %{today_sentry_id: nil})
 
       %Sentry{} = most_rested ->
-        {:ok, _} = Employees.update_sentry_last_duty_at(most_rested, %{last_duty_at: DateTime.utc_now()})
+        {:ok, _sentry} = Employees.update_sentry_last_duty_at(most_rested, %{last_duty_at: DateTime.utc_now()})
 
         Employees.update_team_today_sentry(team, %{today_sentry_id: most_rested.id})
     end
@@ -51,7 +51,7 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
       [] ->
         nil
 
-      [most_rested | _] ->
+      [most_rested | _other_sentries] ->
         most_rested
     end
   end
@@ -75,7 +75,7 @@ defmodule CatOnDuty.Services.RotateTodaySentryAndNotify do
 
     case Telegex.send_message(chat_id_int, message) do
       {:error, msg} -> Logger.error(fn -> "Telegram send message error: #{inspect(msg)}" end)
-      {:ok, _} -> Logger.info(fn -> "Telegram send message successful to sentry: #{name}" end)
+      {:ok, _result} -> Logger.info(fn -> "Telegram send message successful to sentry: #{name}" end)
     end
   end
 end
