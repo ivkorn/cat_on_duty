@@ -40,7 +40,7 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/sentry_live/index.ex:60
+#: lib/cat_on_duty_web/live/sentry_live/index.ex:58
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:50
 #: lib/cat_on_duty_web/live/team_live/show.ex:102
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:92
@@ -67,15 +67,10 @@ msgstr ""
 msgid "Are you shure?"
 msgstr ""
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:60
+#: lib/cat_on_duty_web/live/team_live/index.ex:57
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "New team"
-msgstr ""
-
-#: lib/cat_on_duty_web/live/team_live/index.ex:56
-#, elixir-autogen, elixir-format
-msgid "Teams"
 msgstr ""
 
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:105

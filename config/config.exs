@@ -23,9 +23,11 @@ config :cat_on_duty, CatOnDutyWeb.Endpoint,
   live_view: [signing_salt: "FKUqp7jQ"]
 
 config :cat_on_duty, Oban,
+  notifier: {Oban.Notifiers.Phoenix, pubsub: CatOnDuty.PubSub},
   engine: Oban.Engines.Lite,
   repo: CatOnDuty.ObanRepo,
   queues: [
+    default: 5,
     rotation: 1
   ],
   plugins: [

@@ -11,17 +11,22 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/cat_on_duty_web/components/layouts/app.html.heex:25
-#, elixir-autogen, elixir-format
-msgid "Dashboard"
-msgstr ""
-
 #: lib/cat_on_duty_web/components/layouts/app.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Monitoring"
 msgstr ""
 
-#: lib/cat_on_duty_web/components/layouts/app.html.heex:30
+#: lib/cat_on_duty_web/components/layouts/app.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Errors"
+msgstr ""
+
+#: lib/cat_on_duty_web/components/layouts/app.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Jobs dashboard"
+msgstr ""
+
+#: lib/cat_on_duty_web/components/layouts/app.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Telemetry dashboard"
 msgstr ""

@@ -42,7 +42,6 @@ msgid "On vacation?"
 msgstr "В отпуске?"
 
 #: lib/cat_on_duty_web/components/layouts/app.html.heex:10
-#: lib/cat_on_duty_web/live/sentry_live/index.ex:64
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:1
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:59
 #, elixir-autogen, elixir-format

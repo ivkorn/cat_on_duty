@@ -21,13 +21,18 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <.link href={~p"/dashboard"} class="dropdown-item">
-            {gettext("Dashboard")}
+          <.link href={~p"/errors"} class="dropdown-item">
+            {gettext("Errors")}
           </.link>
         </li>
         <li>
-          <.link href={~p"/errors"} class="dropdown-item">
-            {gettext("Errors")}
+          <.link href={~p"/dashboard"} class="dropdown-item">
+            {gettext("Telemetry dashboard")}
+          </.link>
+        </li>
+        <li>
+          <.link href={~p"/oban"} class="dropdown-item">
+            {gettext("Jobs dashboard")}
           </.link>
         </li>
       </ul>

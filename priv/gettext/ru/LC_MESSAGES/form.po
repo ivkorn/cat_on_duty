@@ -40,7 +40,7 @@ msgstr "Сохраняем..."
 msgid "Show"
 msgstr "Открыть"
 
-#: lib/cat_on_duty_web/live/sentry_live/index.ex:60
+#: lib/cat_on_duty_web/live/sentry_live/index.ex:58
 #: lib/cat_on_duty_web/live/sentry_live/index.html.heex:50
 #: lib/cat_on_duty_web/live/team_live/show.ex:102
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:92
@@ -67,16 +67,11 @@ msgstr "Удалить дежурного"
 msgid "Are you shure?"
 msgstr "Вы уверенны?"
 
-#: lib/cat_on_duty_web/live/team_live/index.ex:60
+#: lib/cat_on_duty_web/live/team_live/index.ex:57
 #: lib/cat_on_duty_web/live/team_live/index.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "New team"
 msgstr "Новая команда"
-
-#: lib/cat_on_duty_web/live/team_live/index.ex:56
-#, elixir-autogen, elixir-format
-msgid "Teams"
-msgstr "Команды"
 
 #: lib/cat_on_duty_web/live/team_live/show.html.heex:105
 #, elixir-autogen, elixir-format
