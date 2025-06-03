@@ -59,6 +59,8 @@ config :error_tracker,
   otp_app: :cat_on_duty,
   enabled: true
 
+config :ex_gram, json_engine: JSON
+
 config :exqlite, default_transaction_mode: :immediate
 
 config :gettext, :default_locale, "ru"
@@ -71,7 +73,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, JSON
 
-config :telegex, caller_adapter: Finch
+config :tesla, :adapter, {Tesla.Adapter.Finch, name: CatOnDuty.HTTP}
 
 config :tower, reporters: [TowerErrorTracker], log_level: :error
 

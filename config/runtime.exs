@@ -66,5 +66,5 @@ if config_env() == :prod do
   config :cat_on_duty, :session_encryption_salt, session_encryption_salt
   config :cat_on_duty, :session_signing_salt, session_signing_salt
 
-  config :telegex, token: tg_bot_token
+  config :ex_gram, token: tg_bot_token
 end

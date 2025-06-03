@@ -47,3 +47,5 @@ priv/dialyzer/*.hash
 node_modules/
 
 *.db*
+
+.vscode/

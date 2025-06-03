@@ -25,6 +25,7 @@ import { Socket } from 'phoenix';
 import { LiveSocket } from 'phoenix_live_view';
 import * as topbar from 'topbar';
 import hooks from './hooks';
+import 'bootstrap/js/dist/dropdown';
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 const liveSocket = new LiveSocket('/live', Socket, {
